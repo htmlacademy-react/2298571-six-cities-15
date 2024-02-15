@@ -1,7 +1,7 @@
 # Личный проект «Шесть городов»
 
 * Студент: [Мария Рындакова](https://up.htmlacademy.ru/react/15/user/2298571).
-* Наставник: `Arthur Litovko`.
+* Наставник: [Arthur Litovko](https://htmlacademy.ru/profile/id6927).
 
 ---
 
