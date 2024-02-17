@@ -1,16 +1,5 @@
 import Card from '../../components/card/card';
-
-type PlaceType = {
-  id: number;
-  city: string;
-  src: string;
-  premium: boolean;
-  bookmarks: boolean;
-  price: number;
-  rating: number;
-  description: string;
-  type: string;
-};
+import type { PlaceType } from '../../types';
 
 export default function Main({ DATA }: { DATA: PlaceType[] }) {
 
