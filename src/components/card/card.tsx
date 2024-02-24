@@ -1,12 +1,4 @@
-type CardProps = {
-  src: string;
-  premium: boolean;
-  bookmarks: boolean;
-  price: number;
-  rating: number;
-  description: string;
-  type: string;
-}
+import type { CardProps } from '../../types';
 
 export default function Card({ src, premium, bookmarks, price, rating, description, type }: CardProps) {
 

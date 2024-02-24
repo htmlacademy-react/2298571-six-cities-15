@@ -1,9 +1,10 @@
 import Card from '../../components/card/card';
 import type { PlaceType } from '../../types';
+import { DATA } from '../../data';
 
-export default function Main({ DATA }: { DATA: PlaceType[] }) {
+export default function Main() {
 
-  const cardsList = DATA.map((place) => (
+  const cardsList = DATA.map((place: PlaceType) => (
     <Card
       key={place.id}
       src={place.src}
