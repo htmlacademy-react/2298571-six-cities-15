@@ -1,22 +1,14 @@
-type CardProps = {
-  src: string;
-  premium: boolean;
-  bookmarks: boolean;
-  price: number;
-  rating: number;
-  description: string;
-  type: string;
-}
+import type { CardProps } from '../../types';
 
-export default function Card({ src, premium, bookmarks, price, rating, description, type }: CardProps) {
+export default function Card({ src, premium, bookmarks, price, rating, description, type }: CardProps): JSX.Element {
 
   return (
     <article className="cities__card place-card">
 
-      {premium && (
+      { premium && (
         <div className="place-card__mark">
           <span>Premium</span>
-        </div>)}
+        </div>) }
 
       <div className="cities__image-wrapper place-card__image-wrapper">
         <a href="#">
