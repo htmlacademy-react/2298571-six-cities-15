@@ -10,14 +10,5 @@ type PlaceType = {
   type: string;
 };
 
-type CardProps = {
-  src: string;
-  premium: boolean;
-  bookmarks: boolean;
-  price: number;
-  rating: number;
-  description: string;
-  type: string;
-}
 
-export type { PlaceType, CardProps };
+export type { PlaceType };

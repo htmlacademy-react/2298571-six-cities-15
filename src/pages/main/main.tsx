@@ -18,7 +18,7 @@ export default function Main(): JSX.Element {
               </div>
             </div>
           ) : (
-            < MainEmpty />
+            <MainEmpty />
           )}
         </div>
       </main>

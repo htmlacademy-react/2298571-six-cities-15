@@ -6,8 +6,8 @@ export default function Header(): JSX.Element {
     <header className="header">
       <div className="container">
         <div className="header__wrapper">
-          < Logo />
-          < Auth />
+          <Logo />
+          <Auth />
         </div>
       </div>
     </header>

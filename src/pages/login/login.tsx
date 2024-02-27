@@ -7,14 +7,14 @@ export default function Login(): JSX.Element {
       <header className="header">
         <div className="container">
           <div className="header__wrapper">
-            < Logo />
+            <Logo />
           </div>
         </div>
       </header>
 
       <main className="page__main page__main--login">
         <div className="page__login-container container">
-          < LoginForm />
+          <LoginForm />
           <section className="locations locations--login locations--current">
             <div className="locations__item">
               <a className="locations__item-link" href="#">
