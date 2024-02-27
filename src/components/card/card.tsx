@@ -37,9 +37,11 @@ export default function Card({card}: CardProps): JSX.Element {
             <svg className="place-card__bookmark-icon" width="18" height="19">
               <use xlinkHref="#icon-bookmark"></use>
             </svg>
+
             {card.bookmarks && (
               <span className="visually-hidden">To bookmarks</span>
             )}
+
           </button>
         </div>
         <div className="place-card__rating rating">

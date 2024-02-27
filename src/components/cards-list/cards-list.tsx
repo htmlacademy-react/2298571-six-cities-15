@@ -8,13 +8,15 @@ export default function CardsList({ data }: { data: PlaceType[] }): JSX.Element 
   const offers = data.map((place) => (
     <Card
       key={place.id}
-      src={place.src}
-      premium={place.premium}
-      bookmarks={place.bookmarks}
-      price={place.price}
-      rating={place.rating}
-      description={place.description}
-      type={place.type}
+      card={{
+        src: place.src,
+        premium: place.premium,
+        bookmarks: place.bookmarks,
+        price: place.price,
+        rating: place.rating,
+        description: place.description,
+        type: place.type
+      }}
     />
   ));
 
