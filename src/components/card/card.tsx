@@ -12,7 +12,7 @@ type CardProps = {
   card: Card;
 }
 
-export default function Card({ card }: CardProps): JSX.Element {
+export default function Card({card}: CardProps): JSX.Element {
 
   return (
     <article className="cities__card place-card">
