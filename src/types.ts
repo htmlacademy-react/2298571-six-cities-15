@@ -10,4 +10,5 @@ type PlaceType = {
   type: string;
 };
 
+
 export type { PlaceType };

@@ -55,3 +55,5 @@ export const DATA = [
     type: 'Room'
   }
 ];
+
+export const AVAILABLE_CITIES = ['Paris', 'Cologne', 'Brussels', 'Amsterdam', 'Hamburg', 'Dusseldorf'];
