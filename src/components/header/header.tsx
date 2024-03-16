@@ -1,4 +1,4 @@
-import Logo from './logo';
+import HeaderLogo from './header-logo';
 import Auth from './auth';
 
 export default function Header(): JSX.Element {
@@ -6,7 +6,7 @@ export default function Header(): JSX.Element {
     <header className="header">
       <div className="container">
         <div className="header__wrapper">
-          <Logo />
+          <HeaderLogo />
           <Auth />
         </div>
       </div>

@@ -1,14 +1,37 @@
 type PlaceType = {
-  id: number;
-  city: string;
-  src: string;
-  premium: boolean;
-  bookmarks: boolean;
-  price: number;
-  rating: number;
-  description: string;
-  type: string;
-};
+  'id': string;
+  'title': string;
+  'type': string;
+  'price': number;
+  'city': {
+    'name': string;
+    'location': {
+      'latitude': number;
+      'longitude': number;
+      'zoom': number;
+    };
+  };
+  'location': {
+    'latitude': number;
+    'longitude': number;
+    'zoom': number;
+  };
+  'isFavorite': boolean;
+  'isPremium': boolean;
+  'rating': number;
+  'previewImage': string;
+  'description': string;
+  'bedrooms': number;
+  'goods': string[];
+  'host': {
+    'name': string;
+    'avatarUrl': string;
+    'isPro': boolean;
+  };
+  'images': string[];
+  'maxAdults': number;
+}
 
+type CardType = Omit<PlaceType, 'city' | 'location'>;
 
-export type { PlaceType };
+export type { PlaceType, CardType };

@@ -1,4 +1,4 @@
-import Logo from '../../components/header/logo';
+import Logo from '../../components/header/header-logo';
 import LoginForm from '../../components/login-form/login-form';
 
 export default function Login(): JSX.Element {
