@@ -2,21 +2,27 @@ import Sort from '../../components/sort/sort';
 import Card from '../../components/card/card';
 import type { PlaceType } from '../../types';
 
+type CardsListProps = {
+  offers: PlaceType[];
+  updateFavorites: (id: string | null) => void;
+}
 
-export default function CardsList({ data }: { data: PlaceType[] }): JSX.Element {
+export default function CardsList({ offers, updateFavorites }: CardsListProps): JSX.Element {
 
-  const offers = data.map((place) => (
+  const offersList = offers.map((offer) => (
     <Card
-      key={place.id}
+      key={offer.id}
       card={{
-        src: place.src,
-        premium: place.premium,
-        bookmarks: place.bookmarks,
-        price: place.price,
-        rating: place.rating,
-        description: place.description,
-        type: place.type
+        id: offer.id,
+        previewImage: offer.previewImage,
+        isPremium: offer.isPremium,
+        isFavorite: offer.isFavorite,
+        price: offer.price,
+        rating: offer.rating,
+        title: offer.title,
+        type: offer.type
       }}
+      updateFavorites={updateFavorites}
     />
   ));
 
@@ -26,7 +32,7 @@ export default function CardsList({ data }: { data: PlaceType[] }): JSX.Element 
       <b className="places__found">312 places to stay in Amsterdam</b>
       <Sort />
       <div className="cities__places-list places__list tabs__content">
-        {offers}
+        {offersList}
       </div>
     </section>
   );
