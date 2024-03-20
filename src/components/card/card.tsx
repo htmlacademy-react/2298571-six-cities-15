@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { CardType } from '../../types';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
@@ -6,20 +5,11 @@ import { AppRoute } from '../../const';
 type CardProps = {
   card: CardType;
   updateFavorites: (id: string | null) => void;
+  handleMouseEnter: (id: string | null) => void;
+  handleMouseLeave: () => void;
 }
 
-type IsActiveCardType = string | null;
-
-export default function Card({ card, updateFavorites }: CardProps): JSX.Element {
-  const [isActiveCard, setIsActiveCard] = useState<IsActiveCardType>(null);
-
-  // Отслеживаем наведение мыши на карту
-  const handleMouseEnter = (id: string | null) => {
-    setIsActiveCard(id);
-  };
-  const handleMouseLeave = () => {
-    setIsActiveCard(null);
-  };
+export default function Card({ card, updateFavorites, handleMouseEnter, handleMouseLeave }: CardProps): JSX.Element {
 
   return (
     <Link to={`${AppRoute.Offer}/${card.id}`}>
