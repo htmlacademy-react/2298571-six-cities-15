@@ -3,13 +3,15 @@ import Card from '../../components/card/card';
 import type { PlaceType } from '../../types';
 
 type CardsListProps = {
-  offers: PlaceType[];
+  chosenCityCards: PlaceType[];
   updateFavorites: (id: string | null) => void;
+  handleMouseEnter: (id: string | null) => void;
+  handleMouseLeave: () => void;
 }
 
-export default function CardsList({ offers, updateFavorites }: CardsListProps): JSX.Element {
+export default function CardsList({ chosenCityCards, updateFavorites, handleMouseEnter, handleMouseLeave }: CardsListProps): JSX.Element {
 
-  const offersList = offers.map((offer) => (
+  const offersList = chosenCityCards.map((offer) => (
     <Card
       key={offer.id}
       card={{
@@ -23,6 +25,8 @@ export default function CardsList({ offers, updateFavorites }: CardsListProps): 
         type: offer.type
       }}
       updateFavorites={updateFavorites}
+      handleMouseEnter={handleMouseEnter}
+      handleMouseLeave = {handleMouseLeave}
     />
   ));
 

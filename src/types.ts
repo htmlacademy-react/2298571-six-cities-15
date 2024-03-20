@@ -1,8 +1,15 @@
-type PlaceType = {
+type CardType = {
   'id': string;
   'title': string;
   'type': string;
   'price': number;
+  'isFavorite': boolean;
+  'isPremium': boolean;
+  'rating': number;
+  'previewImage': string;
+}
+
+type PlaceType = CardType & {
   'city': {
     'name': string;
     'location': {
@@ -16,10 +23,6 @@ type PlaceType = {
     'longitude': number;
     'zoom': number;
   };
-  'isFavorite': boolean;
-  'isPremium': boolean;
-  'rating': number;
-  'previewImage': string;
   'description': string;
   'bedrooms': number;
   'goods': string[];
@@ -32,6 +35,20 @@ type PlaceType = {
   'maxAdults': number;
 }
 
-type CardType = Omit<PlaceType, 'city' | 'location'>;
+type City = {
+  id: string;
+  name: string;
+}
 
-export type { PlaceType, CardType };
+type Point = {
+  'name': string;
+  'location': {
+    'latitude': number;
+    'longitude': number;
+    'zoom': number;
+  };
+}
+
+type Points = Point[];
+
+export type { PlaceType, CardType, City, Point, Points };
