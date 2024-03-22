@@ -6,6 +6,7 @@ import useMap from './use-map';
 import 'leaflet/dist/leaflet.css';
 
 type MapProps = {
+  className: string;
   isActiveCard: string | null;
   chosenCityCards: PlaceType[];
 }
@@ -22,7 +23,7 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40]
 });
 
-export default function Map({ isActiveCard, chosenCityCards }: MapProps): JSX.Element {
+export default function Map({ className, isActiveCard, chosenCityCards }: MapProps): JSX.Element {
   const mapRef = useRef(null);
 
   let defaultCoordinates = { latitude: 0, longitude: 0, zoom: 0 };
@@ -59,8 +60,6 @@ export default function Map({ isActiveCard, chosenCityCards }: MapProps): JSX.El
   }, [map, chosenCityCards, isActiveCard]);
 
   return (
-    <div className="cities__right-section">
-      <section className="cities__map map" style={{ height: '100%' }} ref={mapRef}></section>
-    </div>
+    <section className={`map ${className}`} ref={mapRef}></section>
   );
 }

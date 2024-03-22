@@ -4,7 +4,7 @@ import MainEmpty from '../../components/main-empty/main-empty';
 import Map from '../../components/map/map';
 import { AVAILABLE_CITIES } from '../../data';
 import { PlaceType } from '../../types';
-import { useState, useEffect} from 'react';
+import { useState, useEffect } from 'react';
 
 type MainProps = {
   offers: PlaceType[];
@@ -48,15 +48,19 @@ export default function Main({ offers, updateFavorites }: MainProps): JSX.Elemen
           {chosenCityCards && chosenCityCards.length > 0 ? (
             <div className="cities__places-container container">
               <CardsList
+                isActiveCity={isActiveCity}
                 chosenCityCards={chosenCityCards}
                 updateFavorites={updateFavorites}
                 handleMouseEnter={handleMouseEnter}
                 handleMouseLeave={handleMouseLeave}
               />
-              <Map
-                isActiveCard={isActiveCard}
-                chosenCityCards={chosenCityCards}
-              />
+              <div className="cities__right-section">
+                <Map
+                  className='cities__map'
+                  isActiveCard={isActiveCard}
+                  chosenCityCards={chosenCityCards}
+                />
+              </div>
             </div>
           ) : (
             <MainEmpty isActiveCity={isActiveCity} />
