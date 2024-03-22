@@ -49,6 +49,18 @@ type Point = {
   };
 }
 
+type ReviewType = {
+  'id': string;
+  'date': string;
+  'user': {
+    'name': string;
+    'avatarUrl': string;
+    'isPro': boolean;
+  };
+  'comment': string;
+  'rating': number;
+};
+
 type Points = Point[];
 
-export type { PlaceType, CardType, City, Point, Points };
+export type { PlaceType, CardType, City, Point, Points, ReviewType };

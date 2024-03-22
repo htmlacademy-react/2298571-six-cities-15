@@ -31,8 +31,8 @@ export const offers = [
     ],
     'host': {
       'name': 'Oliver Conner',
-      'avatarUrl': 'https://unsplash.com/photos/closeup-photography-of-woman-smiling-mEZ3PoFGs_k',
-      'isPro': false
+      'avatarUrl': 'img/avatar-angelina.jpg',
+      'isPro': true
     },
     'images': [
       'img/apartment-03.jpg',
@@ -77,8 +77,8 @@ export const offers = [
     ],
     'host': {
       'name': 'Coco Chanel',
-      'avatarUrl': 'https://unsplash.com/photos/man-in-white-crew-neck-shirt-wearing-black-framed-eyeglasses-C8Ta0gwPbQg',
-      'isPro': false
+      'avatarUrl': 'img/avatar-angelina.jpg',
+      'isPro': true
     },
     'images': [
       'img/apartment-03.jpg',
@@ -124,8 +124,8 @@ export const offers = [
     ],
     'host': {
       'name': 'Alberta Bocho',
-      'avatarUrl': 'https://unsplash.com/photos/man-wearing-green-polo-shirt-6anudmpILw4',
-      'isPro': false
+      'avatarUrl': 'img/avatar-angelina.jpg',
+      'isPro': true
     },
     'images': [
       'img/apartment-03.jpg',
@@ -167,8 +167,8 @@ export const offers = [
     ],
     'host': {
       'name': 'Oliver Conner',
-      'avatarUrl': 'https://unsplash.com/photos/woman-in-white-hoodie-looking-to-her-left-L2dTmhQzx4Q',
-      'isPro': false
+      'avatarUrl': 'img/avatar-angelina.jpg',
+      'isPro': true
     },
     'images': [
       'img/apartment-03.jpg',
@@ -213,8 +213,8 @@ export const offers = [
     ],
     'host': {
       'name': 'Oliver Conner',
-      'avatarUrl': 'https://unsplash.com/photos/man-wearing-eyeglasses-K84vnnzxmTQ',
-      'isPro': false
+      'avatarUrl': 'img/avatar-angelina.jpg',
+      'isPro': true
     },
     'images': [
       'img/room.jpg',
@@ -256,8 +256,8 @@ export const offers = [
     ],
     'host': {
       'name': 'Oliver Conner',
-      'avatarUrl': 'https://unsplash.com/photos/a-man-wearing-glasses-and-a-black-shirt-iEEBWgY_6lA',
-      'isPro': false
+      'avatarUrl': 'img/avatar-angelina.jpg',
+      'isPro': true
     },
     'images': [
       'https://url-to-image/image.png'

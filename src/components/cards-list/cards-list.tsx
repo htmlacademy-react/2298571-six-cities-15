@@ -7,9 +7,10 @@ type CardsListProps = {
   updateFavorites: (id: string | null) => void;
   handleMouseEnter: (id: string | null) => void;
   handleMouseLeave: () => void;
+  isActiveCity: string | null;
 }
 
-export default function CardsList({ chosenCityCards, updateFavorites, handleMouseEnter, handleMouseLeave }: CardsListProps): JSX.Element {
+export default function CardsList({ chosenCityCards, updateFavorites, handleMouseEnter, handleMouseLeave, isActiveCity }: CardsListProps): JSX.Element {
 
   const offersList = chosenCityCards.map((offer) => (
     <Card
@@ -33,7 +34,7 @@ export default function CardsList({ chosenCityCards, updateFavorites, handleMous
   return (
     <section className="cities__places places">
       <h2 className="visually-hidden">Places</h2>
-      <b className="places__found">312 places to stay in Amsterdam</b>
+      <b className="places__found">312 places to stay in {isActiveCity}</b>
       <Sort />
       <div className="cities__places-list places__list tabs__content">
         {offersList}
