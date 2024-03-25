@@ -102,7 +102,6 @@ export default function Offer({ offers, updateFavorites, isAuth }: OfferProps): 
           <Map
             className='offer__map'
             isActiveCard={currentOffer.id}
-            chosenCityCards={offers}
           />
         </section>
 
