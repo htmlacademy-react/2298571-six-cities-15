@@ -1,5 +1,5 @@
 import { useParams } from 'react-router-dom';
-import { PlaceType } from '../../types';
+import { PlaceType } from '../../types/types';
 import NotFound from '../404/not-found';
 import ReviewForm from '../../components/review-form/review-form';
 import ReviewsList from '../../components/reviews-list/reviews-list';

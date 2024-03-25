@@ -35,11 +35,6 @@ type PlaceType = CardType & {
   'maxAdults': number;
 }
 
-type City = {
-  id: string;
-  name: string;
-}
-
 type Point = {
   'name': string;
   'location': {
@@ -63,4 +58,4 @@ type ReviewType = {
 
 type Points = Point[];
 
-export type { PlaceType, CardType, City, Point, Points, ReviewType };
+export type { PlaceType, CardType, Point, Points, ReviewType };

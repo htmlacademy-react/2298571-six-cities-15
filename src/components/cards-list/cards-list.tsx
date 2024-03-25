@@ -1,18 +1,18 @@
 import Sort from '../../components/sort/sort';
 import Card from '../../components/card/card';
-import type { PlaceType } from '../../types';
+import { useAppSelector } from '../../hooks';
 
 type CardsListProps = {
-  chosenCityCards: PlaceType[];
   updateFavorites: (id: string | null) => void;
   handleMouseEnter: (id: string | null) => void;
   handleMouseLeave: () => void;
-  isActiveCity: string | null;
 }
 
-export default function CardsList({ chosenCityCards, updateFavorites, handleMouseEnter, handleMouseLeave, isActiveCity }: CardsListProps): JSX.Element {
+export default function CardsList({ updateFavorites, handleMouseEnter, handleMouseLeave }: CardsListProps): JSX.Element {
+  const isActiveCity = useAppSelector((initialState) => initialState.activeCity);
+  const cityCards = useAppSelector((initialState) => initialState.cityCards);
 
-  const offersList = chosenCityCards.map((offer) => (
+  const offersList = cityCards.map((offer) => (
     <Card
       key={offer.id}
       card={{

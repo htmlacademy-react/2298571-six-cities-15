@@ -1,4 +1,4 @@
-import { CardType } from '../../types';
+import { CardType } from '../../types/types';
 import CardInfo from '../card-info/card-info';
 
 type NearOffersProps = {

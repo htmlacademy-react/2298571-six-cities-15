@@ -38,7 +38,7 @@ export default function App(): JSX.Element {
     <BrowserRouter>
       <Routes>
         <Route path='/' element={<Layout />}>
-          <Route index element={<Main offers={offers} updateFavorites={updateFavorites} />} />
+          <Route index element={<Main updateFavorites={updateFavorites} />} />
           <Route path={`${AppRoute.Offer}/:id`} element={<Offer offers={offers} updateFavorites={updateFavorites} isAuth={isAuth} />} />
           <Route path={AppRoute.Favorites}
             element={

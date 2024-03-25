@@ -1,4 +1,4 @@
-import { CardType } from '../../types';
+import { CardType } from '../../types/types';
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 import CardInfo from '../card-info/card-info';

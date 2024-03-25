@@ -1,4 +1,4 @@
-import { PlaceType } from '../../types';
+import { PlaceType } from '../../types/types';
 import Footer from '../../components/footer/footer';
 import FavoritesEmpty from './favorites-empty';
 
