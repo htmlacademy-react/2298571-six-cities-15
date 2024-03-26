@@ -1,4 +1,4 @@
-import { ReviewType } from '../../types';
+import { ReviewType } from '../../types/types';
 import { setDateForm } from '../../utils';
 
 type ReviewProps = {

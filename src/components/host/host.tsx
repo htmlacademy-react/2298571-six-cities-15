@@ -1,4 +1,4 @@
-import { PlaceType } from '../../types';
+import { PlaceType } from '../../types/types';
 
 type HostProps = {
   currentOffer: PlaceType;

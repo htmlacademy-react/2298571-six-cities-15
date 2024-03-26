@@ -1,8 +1,8 @@
-type MainEmptyProps = {
-  isActiveCity: string | null;
-}
+import { useAppSelector } from '../../hooks';
 
-export default function MainEmpty({isActiveCity}:MainEmptyProps): JSX.Element {
+export default function MainEmpty(): JSX.Element {
+  const isActiveCity: string | null = useAppSelector((initialState) => initialState.activeCity);
+
   return (
     <div className="cities__places-container cities__places-container--empty container">
       <section className="cities__no-places">

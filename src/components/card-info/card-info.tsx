@@ -1,4 +1,4 @@
-import { CardType } from '../../types';
+import { CardType } from '../../types/types';
 import { capitalizeString } from '../../utils';
 
 type CardInfo = {

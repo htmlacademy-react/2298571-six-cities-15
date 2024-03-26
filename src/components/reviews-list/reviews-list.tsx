@@ -1,5 +1,5 @@
 import { reviews } from '../../mocks/reviews';
-import { PlaceType, ReviewType } from '../../types';
+import { PlaceType, ReviewType } from '../../types/types';
 import Review from '../review/review';
 
 
