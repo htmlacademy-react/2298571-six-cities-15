@@ -10,9 +10,9 @@ type CardsListProps = {
 
 export default function CardsList({ updateFavorites, handleMouseEnter, handleMouseLeave }: CardsListProps): JSX.Element {
   const isActiveCity = useAppSelector((initialState) => initialState.activeCity);
-  const cityCards = useAppSelector((initialState) => initialState.cityCards);
+  const sortedCityCards = useAppSelector((initialState) => initialState.sortedCityCards);
 
-  const offersList = cityCards.map((offer) => (
+  const offersList = sortedCityCards.map((offer) => (
     <Card
       key={offer.id}
       card={{
