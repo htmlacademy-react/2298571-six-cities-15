@@ -1,8 +1,8 @@
 export enum AppRoute {
-Main = '/',
-Login = '/login',
-Favorites = '/favorites',
-Offer = '/offer'
+  Main = '/',
+  Login = '/login',
+  Favorites = '/favorites',
+  Offer = '/offer'
 }
 
 export enum AuthorizationStatus {
@@ -12,7 +12,7 @@ export enum AuthorizationStatus {
 }
 
 export const URL_MARKER_DEFAULT =
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/pin.svg';
+  'img/pin.svg';
 
 export const URL_MARKER_CURRENT =
-  'https://assets.htmlacademy.ru/content/intensive/javascript-1/demo/interactive-map/main-pin.svg';
+  'img/pin-active.svg';

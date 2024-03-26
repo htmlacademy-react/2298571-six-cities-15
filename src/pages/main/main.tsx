@@ -16,15 +16,15 @@ type IsActiveCardType = string | null;
 export default function Main({ updateFavorites }: MainProps): JSX.Element {
   const [isActiveCard, setIsActiveCard] = useState<IsActiveCardType>(null);
 
-  const dispath = useAppDispatch();
+  const dispatch = useAppDispatch();
   const isActiveCity = useAppSelector((initialState) => initialState.activeCity);
   const offers = useAppSelector((initialState) => initialState.offers);
   const cityCards = useAppSelector((initialState) => initialState.cityCards);
 
   useEffect(() => {
     const cityOffers: PlaceType[] = offers.filter((offer) => offer.city.name === isActiveCity);
-    dispath(updateCityCardsAction(cityOffers));
-  }, [isActiveCity, offers, dispath]);
+    dispatch(updateCityCardsAction(cityOffers));
+  }, [isActiveCity, offers, dispatch]);
 
   // Отслеживаем наведение мыши на карту
   const handleMouseEnter = (id: string | null) => {
