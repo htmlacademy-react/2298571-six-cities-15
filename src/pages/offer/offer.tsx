@@ -7,16 +7,17 @@ import { AuthorizationStatus } from '../../const';
 import Host from '../../components/host/host';
 import NearOffer from '../../components/near-offer/near-offer';
 import Map from '../../components/map/map';
+import { useAppSelector } from '../../hooks';
 
 type OfferProps = {
   offers: PlaceType[];
   updateFavorites: (id: string | null) => void;
-  isAuth: AuthorizationStatus;
 }
 
-export default function Offer({ offers, updateFavorites, isAuth }: OfferProps): JSX.Element {
+export default function Offer({ offers, updateFavorites}: OfferProps): JSX.Element {
   const { id } = useParams();
   const currentOffer = offers.find((offer) => offer.id === id);
+  const authStatus = useAppSelector((initialState) => initialState.authStatus);
 
   if (!currentOffer) {
     return <NotFound />;
@@ -95,7 +96,7 @@ export default function Offer({ offers, updateFavorites, isAuth }: OfferProps): 
 
               <section className="offer__reviews reviews">
                 < ReviewsList currentOffer={currentOffer} />
-                {isAuth === AuthorizationStatus.Auth && <ReviewForm />}
+                {authStatus === AuthorizationStatus.Auth && <ReviewForm />}
               </section>
             </div>
           </div>

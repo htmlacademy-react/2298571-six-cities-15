@@ -1,14 +1,25 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { AVAILABLE_CITIES } from '../data';
-import { offers } from '../mocks/offers';
 import { PlaceType } from '../types/types';
-import { updateCityCardsAction, updateCityAction, updateSortedCardsAction } from './actions';
+import { updateCityCardsAction, updateCityAction, updateSortedCardsAction, loadOffersAction, requareAuthAction, setDataLoadingStatusAction } from './actions';
+import { AuthorizationStatus } from '../const';
 
-const initialState = {
+type InitialState = {
+  activeCity: string;
+  offers: PlaceType[];
+  cityCards: PlaceType[];
+  sortedCityCards: PlaceType[];
+  authStatus: AuthorizationStatus;
+  loadingData: boolean;
+};
+
+const initialState: InitialState = {
   activeCity: AVAILABLE_CITIES[0].name,
-  offers: offers as PlaceType[],
-  cityCards: [] as PlaceType[],
-  sortedCityCards: [] as PlaceType[],
+  offers: [],
+  cityCards: [],
+  sortedCityCards: [],
+  authStatus: AuthorizationStatus.Unknown,
+  loadingData: false,
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -21,6 +32,15 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(updateSortedCardsAction, (state, action) => {
       state.sortedCityCards = action.payload;
+    })
+    .addCase(loadOffersAction, (state, action) => {
+      state.offers = action.payload;
+    })
+    .addCase(requareAuthAction, (state, action) => {
+      state.authStatus = action.payload;
+    })
+    .addCase(setDataLoadingStatusAction, (state, action) => {
+      state.loadingData = action.payload;
     });
 });
 

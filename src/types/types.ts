@@ -56,6 +56,22 @@ type ReviewType = {
   'rating': number;
 };
 
+type AuthData = {
+  login: string;
+  password: string;
+};
+
+type UserData = {
+  id: number;
+  email: string;
+  token: string;
+};
+
+type ErrorMessage = {
+  type: string;
+  message: string;
+}
+
 type Points = Point[];
 
-export type { PlaceType, CardType, Point, Points, ReviewType };
+export type { PlaceType, CardType, Point, Points, ReviewType, AuthData, UserData, ErrorMessage};
