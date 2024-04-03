@@ -1,26 +1,25 @@
-import { useState, useEffect } from 'react';
+import { useState } from 'react';
 import Main from '../../pages/main/main';
 import { AppRoute, AuthorizationStatus } from '../../const';
-import { Route, Routes, BrowserRouter } from 'react-router-dom';
+import { Route, Routes } from 'react-router-dom';
 import NotFound from '../../pages/404/not-found';
 import Login from '../../pages/login/login';
 import Favorites from '../../pages/favorites/favorites';
 import Offer from '../../pages/offer/offer';
 import Layout from '../Layout/layout';
 import PrivateRoute from '../private-route/private-route';
-import { offers } from '../../mocks/offers';
+import { useAppSelector } from '../../hooks';
+import Loading from '../../services/loading/loading';
+import HistoryRouter from '../history/history-route';
+import browserHistory from '../history/browser-history';
 
 export default function App(): JSX.Element {
-  const [isAuth, setIsAuth] = useState(AuthorizationStatus.Auth);
+  const offers = useAppSelector((initialState) => initialState.offers);
+  const authStatus = useAppSelector((initialState) => initialState.authStatus);
+  const loadingData = useAppSelector((initialState) => initialState.loadingData);
   // Для теста
   const [isFavorite, setIsFavorite] = useState<string[]>(['1q', '2q', '3q']);
   // const [isFavorite, setIsFavorite] = useState<string[]>([]);
-
-  // Заглушка для линтера, удалить
-  useEffect(() => {
-    setIsAuth((prevState) => prevState);
-  }, [isAuth]);
-
 
   const updateFavorites = (id: string | null) => {
     setIsFavorite((prevFavorites) => {
@@ -34,15 +33,21 @@ export default function App(): JSX.Element {
     });
   };
 
+  if(authStatus === AuthorizationStatus.Unknown || loadingData){
+    return (
+      <Loading />
+    );
+  }
+
   return (
-    <BrowserRouter>
+    <HistoryRouter history={browserHistory}>
       <Routes>
         <Route path='/' element={<Layout />}>
           <Route index element={<Main updateFavorites={updateFavorites} />} />
-          <Route path={`${AppRoute.Offer}/:id`} element={<Offer offers={offers} updateFavorites={updateFavorites} isAuth={isAuth} />} />
+          <Route path={`${AppRoute.Offer}/:id`} element={<Offer offers={offers} updateFavorites={updateFavorites}/>} />
           <Route path={AppRoute.Favorites}
             element={
-              <PrivateRoute isAuth={isAuth}>
+              <PrivateRoute>
                 <Favorites offers={offers} updateFavorites={updateFavorites} isFavorite={isFavorite} />
               </PrivateRoute>
             }
@@ -51,6 +56,6 @@ export default function App(): JSX.Element {
         <Route path={AppRoute.Login} element={<Login />} />
         <Route path='*' element={<NotFound />} />
       </Routes>
-    </BrowserRouter>
+    </HistoryRouter>
   );
 }

@@ -35,6 +35,9 @@ export default function Map({ className, isActiveCard }: MapProps): JSX.Element 
 
   const map = useMap(mapRef, defaultCoordinates);
 
+  const latitude = defaultCoordinates.latitude;
+  const longitude = defaultCoordinates.longitude;
+
   useEffect(() => {
     if (map) {
       const markerLayer = layerGroup().addTo(map);
@@ -53,11 +56,13 @@ export default function Map({ className, isActiveCard }: MapProps): JSX.Element 
           .addTo(markerLayer);
       });
 
+      map.setView([latitude, longitude]);
+
       return () => {
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, cityCards, isActiveCard]);
+  }, [map, cityCards, isActiveCard, latitude, longitude]);
 
   return (
     <section className={`map ${className}`} ref={mapRef}></section>

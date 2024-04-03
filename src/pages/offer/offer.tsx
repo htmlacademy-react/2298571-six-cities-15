@@ -7,16 +7,17 @@ import { AuthorizationStatus } from '../../const';
 import Host from '../../components/host/host';
 import NearOffer from '../../components/near-offer/near-offer';
 import Map from '../../components/map/map';
+import { useAppSelector } from '../../hooks';
 
 type OfferProps = {
   offers: PlaceType[];
   updateFavorites: (id: string | null) => void;
-  isAuth: AuthorizationStatus;
 }
 
-export default function Offer({ offers, updateFavorites, isAuth }: OfferProps): JSX.Element {
+export default function Offer({ offers, updateFavorites }: OfferProps): JSX.Element {
   const { id } = useParams();
   const currentOffer = offers.find((offer) => offer.id === id);
+  const authStatus = useAppSelector((initialState) => initialState.authStatus);
 
   if (!currentOffer) {
     return <NotFound />;
@@ -29,7 +30,7 @@ export default function Offer({ offers, updateFavorites, isAuth }: OfferProps): 
 
           <div className="offer__gallery-container container">
             <div className="offer__gallery">
-              {currentOffer.images.slice(0, 6).map((image: string) => (
+              {currentOffer && currentOffer.images && currentOffer.images.slice(0, 6).map((image: string) => (
                 <div className="offer__image-wrapper" key={image}>
                   <img className="offer__image" src={image} alt="Photo studio" />
                 </div>
@@ -79,23 +80,24 @@ export default function Offer({ offers, updateFavorites, isAuth }: OfferProps): 
                 <b className="offer__price-value">&euro;{currentOffer.price}</b>
                 <span className="offer__price-text">&nbsp;night</span>
               </div>
+              {currentOffer.goods &&
+                <div className="offer__inside">
+                  <h2 className="offer__inside-title">What&apos;s inside</h2>
+                  <ul className="offer__inside-list">
+                    {currentOffer.goods.map((good: string) => (
+                      <li className="offer__inside-item" key={good}>
+                        {good}
+                      </li>
+                    ))}
+                  </ul>
+                </div>}
 
-              <div className="offer__inside">
-                <h2 className="offer__inside-title">What&apos;s inside</h2>
-                <ul className="offer__inside-list">
-                  {currentOffer.goods.map((good: string) => (
-                    <li className="offer__inside-item" key={good}>
-                      {good}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-
-              <Host currentOffer={currentOffer} />
+              {currentOffer.goods &&
+                <Host currentOffer={currentOffer} />}
 
               <section className="offer__reviews reviews">
                 < ReviewsList currentOffer={currentOffer} />
-                {isAuth === AuthorizationStatus.Auth && <ReviewForm />}
+                {authStatus === AuthorizationStatus.Auth && <ReviewForm />}
               </section>
             </div>
           </div>

@@ -1,6 +1,7 @@
 import { Link } from 'react-router-dom';
 import { AppRoute } from '../../const';
 
+
 export default function Auth(): JSX.Element {
   return (
     <nav className="header__nav">
