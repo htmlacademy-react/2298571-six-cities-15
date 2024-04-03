@@ -1,5 +1,7 @@
+import { Link } from 'react-router-dom';
 import { CardType } from '../../types/types';
 import { capitalizeString } from '../../utils';
+import { AppRoute } from '../../const';
 
 type CardInfo = {
   card: CardType;
@@ -33,7 +35,7 @@ export default function CardInfo({ card, updateFavorites }: CardInfo): JSX.Eleme
         </div>
       </div>
       <h2 className="place-card__name">
-        <a href="#">{card.title}</a>
+        <Link to={`${AppRoute.Offer}/${card.id}`}>{card.title}</Link>
       </h2>
       <p className="place-card__type">{capitalizeString(card.type)}</p>
     </div>

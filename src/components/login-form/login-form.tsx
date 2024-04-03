@@ -1,9 +1,10 @@
 import { FormEvent, useRef } from 'react';
 import { useAppDispatch } from '../../hooks';
 import { useNavigate } from 'react-router-dom';
-import { AuthData } from '../../types/types';
 import { loginAction } from '../../store/api-actions';
 import { AppRoute } from '../../const';
+import { toast } from 'react-toastify';
+import { AuthData } from '../../types/types';
 
 export default function LoginForm(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
@@ -12,17 +13,23 @@ export default function LoginForm(): JSX.Element {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
 
-  const onSubmit = (authData: AuthData) => {
-    dispatch(loginAction(authData));
-  };
-
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
     if (loginRef.current !== null && passwordRef.current !== null) {
-      onSubmit({
+      const authData: AuthData = {
         login: loginRef.current.value,
         password: passwordRef.current.value
-      });
+      };
+
+      dispatch(loginAction(authData))
+        .then((success) => {
+          if (success) {
+            navigate(AppRoute.Favorites);
+          }
+        })
+        .catch(() => {
+          toast.error('Ошибка аутентификации');
+        });
     }
   };
 
@@ -60,7 +67,6 @@ export default function LoginForm(): JSX.Element {
         <button
           className="login__submit form__submit button"
           type="submit"
-          onClick={() => navigate(AppRoute.Favorites)}
         >
           Sign in
         </button>
