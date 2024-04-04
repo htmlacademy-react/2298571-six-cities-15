@@ -1,21 +1,30 @@
-import { CardType } from '../../types/types';
-import CardInfo from '../card-info/card-info';
+import { useAppSelector } from '../../hooks';
+import Card from '../card/card';
 
-type NearOffersProps = {
-  card: CardType;
-  updateFavorites: (id: string | null) => void;
-}
-
-export default function NearOffer({ card, updateFavorites }: NearOffersProps): JSX.Element {
-
+export default function NearOffer(): JSX.Element {
+  const offers = useAppSelector((initialState) => initialState.offers);
   return (
-    <article className="near-places__card place-card" key={card.id}>
-      <div className="near-places__image-wrapper place-card__image-wrapper">
-        <a href="#">
-          <img className="place-card__image" src={card.previewImage} width="260" height="200" alt="Place image" />
-        </a>
-      </div>
-      <CardInfo card = {card} updateFavorites={updateFavorites}/>
-    </article>
+    <div className="container">
+      <section className="near-places places">
+        <h2 className="near-places__title">Other places in the neighbourhood</h2>
+        <div className="near-places__list places__list">
+          {offers.slice(0, 3).map((offer) => (
+            <Card
+              key={offer.id}
+              card={offer}
+              className={{
+                page: 'near-places',
+                info: null,
+                bookmark: 'place-card',
+              }}
+              imageSize={{
+                width: 260,
+                height: 200,
+              }}
+            />
+          ))}
+        </div>
+      </section>
+    </div>
   );
 }

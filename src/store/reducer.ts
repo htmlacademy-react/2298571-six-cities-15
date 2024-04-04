@@ -1,7 +1,8 @@
 import { createReducer } from '@reduxjs/toolkit';
 import { AVAILABLE_CITIES } from '../data';
 import { PlaceType } from '../types/types';
-import { updateCityCardsAction, updateCityAction, updateSortedCardsAction, loadOffersAction, requareAuthAction, setDataLoadingStatusAction } from './actions';
+import { updateCityCardsAction, updateCityAction, updateSortedCardsAction, loadOffersAction, requareAuthAction,
+  setDataLoadingStatusAction, updateFavoriteCardsAction } from './actions';
 import { AuthorizationStatus } from '../const';
 
 type InitialState = {
@@ -11,6 +12,7 @@ type InitialState = {
   sortedCityCards: PlaceType[];
   authStatus: AuthorizationStatus;
   loadingData: boolean;
+  favoriteCards: PlaceType[];
 };
 
 const initialState: InitialState = {
@@ -20,6 +22,7 @@ const initialState: InitialState = {
   sortedCityCards: [],
   authStatus: AuthorizationStatus.Unknown,
   loadingData: false,
+  favoriteCards: [],
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -41,6 +44,9 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(setDataLoadingStatusAction, (state, action) => {
       state.loadingData = action.payload;
+    })
+    .addCase(updateFavoriteCardsAction, (state, action) => {
+      state.favoriteCards = action.payload;
     });
 });
 

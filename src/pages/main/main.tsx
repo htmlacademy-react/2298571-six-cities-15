@@ -7,13 +7,9 @@ import { useState, useEffect } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { updateCityCardsAction } from '../../store/actions';
 
-type MainProps = {
-  updateFavorites: (id: string | null) => void;
-}
-
 type IsActiveCardType = string | null;
 
-export default function Main({ updateFavorites }: MainProps): JSX.Element {
+export default function Main(): JSX.Element {
   const [isActiveCard, setIsActiveCard] = useState<IsActiveCardType>(null);
 
   const dispatch = useAppDispatch();
@@ -43,7 +39,6 @@ export default function Main({ updateFavorites }: MainProps): JSX.Element {
           {cityCards && cityCards.length > 0 ? (
             <div className="cities__places-container container">
               <CardsList
-                updateFavorites={updateFavorites}
                 handleMouseEnter={handleMouseEnter}
                 handleMouseLeave={handleMouseLeave}
               />

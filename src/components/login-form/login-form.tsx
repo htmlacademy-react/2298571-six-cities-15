@@ -5,6 +5,7 @@ import { loginAction } from '../../store/api-actions';
 import { AppRoute } from '../../const';
 import { toast } from 'react-toastify';
 import { AuthData } from '../../types/types';
+import { validateForm } from '../../utils';
 
 export default function LoginForm(): JSX.Element {
   const loginRef = useRef<HTMLInputElement | null>(null);
@@ -15,22 +16,31 @@ export default function LoginForm(): JSX.Element {
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    if (loginRef.current !== null && passwordRef.current !== null) {
-      const authData: AuthData = {
-        login: loginRef.current.value,
-        password: passwordRef.current.value
-      };
-
-      dispatch(loginAction(authData))
-        .then((success) => {
-          if (success) {
-            navigate(AppRoute.Favorites);
-          }
-        })
-        .catch(() => {
-          toast.error('Ошибка аутентификации');
-        });
+    if (!loginRef.current || !passwordRef.current) {
+      return;
     }
+
+    const email = loginRef.current.value;
+    const password = passwordRef.current.value;
+
+    if (!validateForm(email, password)) {
+      return;
+    }
+
+    const authData: AuthData = {
+      login: email,
+      password: password
+    };
+
+    dispatch(loginAction(authData))
+      .then((success) => {
+        if (success) {
+          navigate(AppRoute.Main);
+        }
+      })
+      .catch(() => {
+        toast.error('Ошибка аутентификации');
+      });
   };
 
   return (

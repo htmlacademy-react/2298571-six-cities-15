@@ -5,16 +5,16 @@ import ReviewForm from '../../components/review-form/review-form';
 import ReviewsList from '../../components/reviews-list/reviews-list';
 import { AuthorizationStatus } from '../../const';
 import Host from '../../components/host/host';
-import NearOffer from '../../components/near-offer/near-offer';
 import Map from '../../components/map/map';
 import { useAppSelector } from '../../hooks';
+import Bookmarks from '../../components/bookmarks/bookmarks';
+import NearOffer from '../../components/near-offer/near-offer';
 
 type OfferProps = {
   offers: PlaceType[];
-  updateFavorites: (id: string | null) => void;
 }
 
-export default function Offer({ offers, updateFavorites }: OfferProps): JSX.Element {
+export default function Offer({ offers }: OfferProps): JSX.Element {
   const { id } = useParams();
   const currentOffer = offers.find((offer) => offer.id === id);
   const authStatus = useAppSelector((initialState) => initialState.authStatus);
@@ -48,12 +48,11 @@ export default function Offer({ offers, updateFavorites }: OfferProps): JSX.Elem
 
               <div className="offer__name-wrapper">
                 <h1 className="offer__name">{currentOffer.title}</h1>
-                <button className="offer__bookmark-button button" type="button" onClick={() => id && updateFavorites(id)}>
-                  <svg className="offer__bookmark-icon" width="31" height="33">
-                    <use xlinkHref="#icon-bookmark"></use>
-                  </svg>
-                  <span className="visually-hidden">To bookmarks</span>
-                </button>
+                <Bookmarks
+                  card={currentOffer}
+                  className={{ bookmark: 'offer' }}
+                  iconSize = {{ width: 31, height: 33 }}
+                />
               </div>
 
               <div className="offer__rating rating">
@@ -107,16 +106,7 @@ export default function Offer({ offers, updateFavorites }: OfferProps): JSX.Elem
           />
         </section>
 
-        <div className="container">
-          <section className="near-places places">
-            <h2 className="near-places__title">Other places in the neighbourhood</h2>
-            <div className="near-places__list places__list">
-              {offers.slice(0, 3).map((offer) => (
-                <NearOffer card={offer} key={offer.id} updateFavorites={updateFavorites} />
-              ))}
-            </div>
-          </section>
-        </div>
+        <NearOffer />
       </main>
     </div>
   );
