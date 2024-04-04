@@ -9,3 +9,4 @@ export const loadOffersAction = createAction<PlaceType[]>('loadOffersAction');
 export const requareAuthAction = createAction<AuthorizationStatus>('requareAuthAction');
 export const setDataLoadingStatusAction = createAction<boolean>('setDataLoadingStatusAction');
 export const redirectToRouteAction = createAction<AppRoute>('redirectToRouteAction');
+export const updateFavoriteCardsAction = createAction<PlaceType[]>('updateFavoriteCardsAction');

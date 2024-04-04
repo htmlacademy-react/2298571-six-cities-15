@@ -1,3 +1,5 @@
+import { toast } from 'react-toastify';
+
 function capitalizeString(string: string): string {
   return string.charAt(0).toUpperCase() + string.slice(1);
 }
@@ -14,5 +16,18 @@ function setDateForm(dateString: string): string {
   return formattedDate;
 }
 
+const validateForm = (email: string, password: string): boolean => {
+  if (!email.trim()) {
+    toast.error('E-mail не должен быть пустым.');
+    return false;
+  }
+  const hasLetter = /[a-zA-Z]/.test(password);
+  const hasNumber = /\d/.test(password);
+  if (!hasLetter || !hasNumber) {
+    toast.error('Пароль должен содержать хотя бы одну букву и цифру.');
+    return false;
+  }
+  return true;
+};
 
-export { setDateForm, capitalizeString };
+export { setDateForm, capitalizeString, validateForm };

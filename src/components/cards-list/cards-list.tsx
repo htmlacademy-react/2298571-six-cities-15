@@ -3,12 +3,11 @@ import Card from '../../components/card/card';
 import { useAppSelector } from '../../hooks';
 
 type CardsListProps = {
-  updateFavorites: (id: string | null) => void;
   handleMouseEnter: (id: string | null) => void;
   handleMouseLeave: () => void;
 }
 
-export default function CardsList({ updateFavorites, handleMouseEnter, handleMouseLeave }: CardsListProps): JSX.Element {
+export default function CardsList({ handleMouseEnter, handleMouseLeave }: CardsListProps): JSX.Element {
   const isActiveCity = useAppSelector((initialState) => initialState.activeCity);
   const sortedCityCards = useAppSelector((initialState) => initialState.sortedCityCards);
 
@@ -23,11 +22,19 @@ export default function CardsList({ updateFavorites, handleMouseEnter, handleMou
         price: offer.price,
         rating: offer.rating,
         title: offer.title,
-        type: offer.type
+        type: offer.type,
       }}
-      updateFavorites={updateFavorites}
       handleMouseEnter={handleMouseEnter}
       handleMouseLeave = {handleMouseLeave}
+      imageSize = {{
+        width: 260,
+        height: 200,
+      }}
+      className = {{
+        page: 'cities',
+        info: null,
+        bookmark: 'place-card',
+      }}
     />
   ));
 

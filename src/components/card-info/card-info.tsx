@@ -2,31 +2,25 @@ import { Link } from 'react-router-dom';
 import { CardType } from '../../types/types';
 import { capitalizeString } from '../../utils';
 import { AppRoute } from '../../const';
+import Bookmarks from '../bookmarks/bookmarks';
 
 type CardInfo = {
   card: CardType;
-  updateFavorites: (id: string | null) => void;
+  className: {
+    bookmark: string;
+  };
 }
 
-export default function CardInfo({ card, updateFavorites }: CardInfo): JSX.Element {
+export default function CardInfo({ card, className }: CardInfo): JSX.Element {
 
   return (
-    <div className="place-card__info">
+    <>
       <div className="place-card__price-wrapper">
         <div className="place-card__price">
           <b className="place-card__price-value">&euro;{card.price}</b>
           <span className="place-card__price-text">&#47;&nbsp;night</span>
         </div>
-        <button className="place-card__bookmark-button button" type="button" onClick={() => updateFavorites(card.id)}>
-          <svg className="place-card__bookmark-icon" width="18" height="19">
-            <use xlinkHref="#icon-bookmark"></use>
-          </svg>
-
-          {card.isFavorite && (
-            <span className="visually-hidden">To bookmarks</span>
-          )}
-
-        </button>
+        <Bookmarks card={card} className={className}/>
       </div>
       <div className="place-card__rating rating">
         <div className="place-card__stars rating__stars">
@@ -38,6 +32,6 @@ export default function CardInfo({ card, updateFavorites }: CardInfo): JSX.Eleme
         <Link to={`${AppRoute.Offer}/${card.id}`}>{card.title}</Link>
       </h2>
       <p className="place-card__type">{capitalizeString(card.type)}</p>
-    </div>
+    </>
   );
 }
