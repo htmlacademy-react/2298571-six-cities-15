@@ -35,16 +35,7 @@ type PlaceType = CardType & {
   'maxAdults': number;
 }
 
-type Point = {
-  'name': string;
-  'location': {
-    'latitude': number;
-    'longitude': number;
-    'zoom': number;
-  };
-}
-
-type ReviewType = {
+type CommentsType = {
   'id': string;
   'date': string;
   'user': {
@@ -55,6 +46,16 @@ type ReviewType = {
   'comment': string;
   'rating': number;
 };
+
+
+type Point = {
+  'name': string;
+  'location': {
+    'latitude': number;
+    'longitude': number;
+    'zoom': number;
+  };
+}
 
 type AuthData = {
   login: string;
@@ -74,4 +75,4 @@ type ErrorMessage = {
 
 type Points = Point[];
 
-export type { PlaceType, CardType, Point, Points, ReviewType, AuthData, UserData, ErrorMessage};
+export type { PlaceType, CardType, Point, Points, AuthData, UserData, ErrorMessage, CommentsType };

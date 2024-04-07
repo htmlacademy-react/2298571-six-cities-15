@@ -1,13 +1,14 @@
 import { useRef, useEffect } from 'react';
 import { Icon, Marker, layerGroup } from 'leaflet';
 import { URL_MARKER_DEFAULT, URL_MARKER_CURRENT } from '../../const';
-import { useAppSelector } from '../../hooks';
 import useMap from './use-map';
 import 'leaflet/dist/leaflet.css';
+import { PlaceType } from '../../types/types';
 
 type MapProps = {
   className: string;
   isActiveCard: string | null;
+  mappedOffers: PlaceType[];
 }
 
 const defaultCustomIcon = new Icon({
@@ -22,14 +23,13 @@ const currentCustomIcon = new Icon({
   iconAnchor: [20, 40]
 });
 
-export default function Map({ className, isActiveCard }: MapProps): JSX.Element {
+export default function Map({ className, isActiveCard, mappedOffers }: MapProps): JSX.Element {
   const mapRef = useRef(null);
-  const cityCards = useAppSelector((initialState) => initialState.cityCards);
 
   let defaultCoordinates = { latitude: 0, longitude: 0, zoom: 0 };
 
-  if (cityCards.length > 0) {
-    const { latitude, longitude, zoom } = cityCards[0].city.location;
+  if (mappedOffers.length > 0) {
+    const { latitude, longitude, zoom } = mappedOffers[0].city.location;
     defaultCoordinates = { latitude, longitude, zoom };
   }
 
@@ -41,7 +41,7 @@ export default function Map({ className, isActiveCard }: MapProps): JSX.Element 
   useEffect(() => {
     if (map) {
       const markerLayer = layerGroup().addTo(map);
-      cityCards.forEach((card) => {
+      mappedOffers.forEach((card) => {
         const marker = new Marker({
           lat: card.location.latitude,
           lng: card.location.longitude
@@ -62,7 +62,7 @@ export default function Map({ className, isActiveCard }: MapProps): JSX.Element 
         map.removeLayer(markerLayer);
       };
     }
-  }, [map, cityCards, isActiveCard, latitude, longitude]);
+  }, [map, mappedOffers, isActiveCard, latitude, longitude]);
 
   return (
     <section className={`map ${className}`} ref={mapRef}></section>

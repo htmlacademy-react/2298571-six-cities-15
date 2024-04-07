@@ -46,6 +46,7 @@ export default function Main(): JSX.Element {
                 <Map
                   className='cities__map'
                   isActiveCard={isActiveCard}
+                  mappedOffers={cityCards}
                 />
               </div>
             </div>

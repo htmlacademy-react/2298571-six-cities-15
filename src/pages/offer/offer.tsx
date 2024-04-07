@@ -1,23 +1,18 @@
-import { useParams } from 'react-router-dom';
-import { PlaceType } from '../../types/types';
 import NotFound from '../404/not-found';
 import ReviewForm from '../../components/review-form/review-form';
-import ReviewsList from '../../components/reviews-list/reviews-list';
 import { AuthorizationStatus } from '../../const';
 import Host from '../../components/host/host';
 import Map from '../../components/map/map';
 import { useAppSelector } from '../../hooks';
 import Bookmarks from '../../components/bookmarks/bookmarks';
 import NearOffer from '../../components/near-offer/near-offer';
+import { capitalizeString } from '../../utils';
+import CommentsList from '../../components/comments-list/comments-list';
 
-type OfferProps = {
-  offers: PlaceType[];
-}
-
-export default function Offer({ offers }: OfferProps): JSX.Element {
-  const { id } = useParams();
-  const currentOffer = offers.find((offer) => offer.id === id);
+export default function Offer(): JSX.Element {
+  const currentOffer = useAppSelector((initialState) => initialState.currentOfferDetails);
   const authStatus = useAppSelector((initialState) => initialState.authStatus);
+  const nearByOffers = useAppSelector((initialState) => initialState.nearByOffers);
 
   if (!currentOffer) {
     return <NotFound />;
@@ -65,7 +60,7 @@ export default function Offer({ offers }: OfferProps): JSX.Element {
 
               <ul className="offer__features">
                 <li className="offer__feature offer__feature--entire">
-                  {currentOffer.type}
+                  {capitalizeString(currentOffer.type)}
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
                   {currentOffer.bedrooms}
@@ -95,7 +90,7 @@ export default function Offer({ offers }: OfferProps): JSX.Element {
                 <Host currentOffer={currentOffer} />}
 
               <section className="offer__reviews reviews">
-                < ReviewsList currentOffer={currentOffer} />
+                < CommentsList />
                 {authStatus === AuthorizationStatus.Auth && <ReviewForm />}
               </section>
             </div>
@@ -103,6 +98,7 @@ export default function Offer({ offers }: OfferProps): JSX.Element {
           <Map
             className='offer__map'
             isActiveCard={currentOffer.id}
+            mappedOffers={[currentOffer, ...nearByOffers]}
           />
         </section>
 

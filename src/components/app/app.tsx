@@ -13,7 +13,6 @@ import HistoryRouter from '../history/history-route';
 import browserHistory from '../history/browser-history';
 
 export default function App(): JSX.Element {
-  const offers = useAppSelector((initialState) => initialState.offers);
   const authStatus = useAppSelector((initialState) => initialState.authStatus);
   const loadingData = useAppSelector((initialState) => initialState.loadingData);
 
@@ -28,7 +27,7 @@ export default function App(): JSX.Element {
       <Routes>
         <Route path='/' element={<Layout />}>
           <Route index element={<Main />} />
-          <Route path={`${AppRoute.Offer}/:id`} element={<Offer offers={offers}/>} />
+          <Route path={`${AppRoute.Offer}/:id`} element={<Offer />} />
           <Route path={AppRoute.Favorites}
             element={
               <PrivateRoute>

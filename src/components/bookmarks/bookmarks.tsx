@@ -1,5 +1,5 @@
 import { useDispatch } from 'react-redux';
-import { CardType } from '../../types/types';
+import { CardType, PlaceType } from '../../types/types';
 import { useAppSelector } from '../../hooks';
 import { updateFavoriteCardsAction } from '../../store/actions';
 
@@ -24,7 +24,7 @@ export default function Bookmarks({ card, className, iconSize = { width: 18, hei
     if (id !== null) {
       const checkExistance = favoriteCards.some((item) => item.id === id);
 
-      let updatedFavorites = [];
+      let updatedFavorites: PlaceType[] = [];
       if (checkExistance) {
         updatedFavorites = favoriteCards.filter((item) => item.id !== id);
       } else {
@@ -42,7 +42,7 @@ export default function Bookmarks({ card, className, iconSize = { width: 18, hei
   const isFavorite = favoriteCards.some((item) => item.id === card.id);
 
   return (
-    <button className={`${className.bookmark}__bookmark-button button${isFavorite ? ' place-card__bookmark-button--active' : ''}`}
+    <button className={`${className.bookmark}__bookmark-button button ${isFavorite ? `${className.bookmark}__bookmark-button--active` : ''}`}
       type="button"
       onClick={() => updateFavorites(card.id)}
     >
