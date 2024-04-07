@@ -2,7 +2,7 @@ export enum AppRoute {
   Main = '/',
   Login = '/login',
   Favorites = '/favorites',
-  Offer = '/offer'
+  Offer = '/offers'
 }
 
 export enum AuthorizationStatus {
@@ -15,6 +15,7 @@ export const enum ApiRoute {
   Offers = '/offers',
   Login = '/login',
   Logout = '/logout',
+  Comments = '/comments'
 }
 
 export const URL_MARKER_DEFAULT = 'img/pin.svg';

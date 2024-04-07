@@ -2,13 +2,13 @@ import { useAppSelector } from '../../hooks';
 import Card from '../card/card';
 
 export default function NearOffer(): JSX.Element {
-  const offers = useAppSelector((initialState) => initialState.offers);
+  const nearByOffers = useAppSelector((initialState) => initialState.nearByOffers);
   return (
     <div className="container">
       <section className="near-places places">
         <h2 className="near-places__title">Other places in the neighbourhood</h2>
         <div className="near-places__list places__list">
-          {offers.slice(0, 3).map((offer) => (
+          {nearByOffers && nearByOffers.map((offer) => (
             <Card
               key={offer.id}
               card={offer}
