@@ -2,11 +2,10 @@ import { createReducer } from '@reduxjs/toolkit';
 import { AVAILABLE_CITIES } from '../data';
 import { CommentsType, PlaceType } from '../types/types';
 import {
-  updateCityCardsAction, updateCityAction, updateSortedCardsAction, loadOffersAction, requareAuthAction,
-  setDataLoadingStatusAction, updateFavoriteCardsAction, loadOfferDetailsAction, loadCommentsAction, loadNearByOffersAction
+  updateCityCardsAction, updateCityAction, updateSortedCardsAction, loadOffersAction, requareAuthAction, updateCommentsAction,
+  setDataLoadingStatusAction, loadFavoriteCardsAction, loadOfferDetailsAction, loadCommentsAction, loadNearByOffersAction
 } from './actions';
 import { AuthorizationStatus } from '../const';
-import { sendNewComment } from './api-actions';
 
 type InitialState = {
   activeCity: string;
@@ -63,14 +62,15 @@ const reducer = createReducer(initialState, (builder) => {
     .addCase(setDataLoadingStatusAction, (state, action) => {
       state.loadingData = action.payload;
     })
-    .addCase(sendNewComment.fulfilled, (state, action) => {
-      state.currentOfferComments = Array.isArray(action.payload)
-        ? [...state.currentOfferComments, ...action.payload]
-        : [...state.currentOfferComments, action.payload];
+    .addCase(updateCommentsAction, (state, action) => {
+      state.currentOfferComments = [...state.currentOfferComments, action.payload];
     })
-    .addCase(updateFavoriteCardsAction, (state, action) => {
+    .addCase(loadFavoriteCardsAction, (state, action) => {
       state.favoriteCards = action.payload;
     });
+  // .addCase(updateFavoriteCardsAction, (state, action) => {
+  //   state.favoriteCards = action.payload;
+  // });
 });
 
 export { reducer };

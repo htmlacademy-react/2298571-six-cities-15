@@ -1,5 +1,3 @@
-import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
 import { CardType } from '../../types/types';
 import CardInfo from '../card-info/card-info';
 
@@ -32,9 +30,7 @@ export default function Card({ card, handleMouseEnter, handleMouseLeave, imageSi
         </div>)}
 
       <div className={`${className.page}__image-wrapper place-card__image-wrapper`}>
-        <Link to={`${AppRoute.Offer}/${card.id}`}>
-          <img className="place-card__image" src={card.previewImage} width={imageSize.width} height={imageSize.height} alt="Place image" />
-        </Link>
+        <img className="place-card__image" src={card.previewImage} width={imageSize.width} height={imageSize.height} alt="Place image" />
       </div>
       <div className={`place-card__info ${className.info}`}>
         <CardInfo card={card} className={className} />

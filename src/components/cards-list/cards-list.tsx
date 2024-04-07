@@ -41,7 +41,7 @@ export default function CardsList({ handleMouseEnter, handleMouseLeave }: CardsL
   return (
     <section className="cities__places places">
       <h2 className="visually-hidden">Places</h2>
-      <b className="places__found">312 places to stay in {isActiveCity}</b>
+      <b className="places__found">{sortedCityCards.length} places to stay in {isActiveCity}</b>
       <Sort />
       <div className="cities__places-list places__list tabs__content">
         {offersList}
