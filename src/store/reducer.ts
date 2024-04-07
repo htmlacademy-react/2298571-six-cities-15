@@ -16,7 +16,7 @@ type InitialState = {
   sortedCityCards: PlaceType[];
   authStatus: AuthorizationStatus;
   loadingData: boolean;
-  favoriteCards: PlaceType[] | null;
+  favoriteCards: PlaceType[];
   currentOfferComments: CommentsType[];
   nearByOffers: PlaceType[];
 };

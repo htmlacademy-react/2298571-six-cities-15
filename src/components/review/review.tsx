@@ -1,8 +1,8 @@
-import { ReviewType } from '../../types/types';
+import { CommentsType } from '../../types/types';
 import { setDateForm } from '../../utils';
 
 type ReviewProps = {
-  review: ReviewType;
+  review: CommentsType;
 }
 
 export default function Review({ review }: ReviewProps): JSX.Element {
