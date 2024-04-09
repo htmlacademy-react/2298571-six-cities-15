@@ -30,7 +30,7 @@ const validateForm = (email: string, password: string): boolean => {
   return true;
 };
 
-function formatWordCount(number:number, word:string) {
+function formatWordCount(number: number, word: string) {
   if (number === 1) {
     return `${number} ${word}`;
   } else {
@@ -38,4 +38,6 @@ function formatWordCount(number:number, word:string) {
   }
 }
 
-export { setDateForm, capitalizeString, validateForm, formatWordCount};
+export const getRandomCity = <T>(array: T[]): T => array[Math.floor(Math.random() * array.length)];
+
+export { setDateForm, capitalizeString, validateForm, formatWordCount };

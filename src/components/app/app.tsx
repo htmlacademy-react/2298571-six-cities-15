@@ -5,16 +5,25 @@ import NotFound from '../../pages/404/not-found';
 import Login from '../../pages/login/login';
 import Favorites from '../../pages/favorites/favorites';
 import Offer from '../../pages/offer/offer';
-import Layout from '../layout/layout';
 import PrivateRoute from '../private-route/private-route';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import Loading from '../../services/loading/loading';
 import HistoryRouter from '../history/history-route';
 import browserHistory from '../history/browser-history';
+import { useEffect } from 'react';
+import { fetchFavoriteOffers } from '../../store/api-actions';
+import Layout from '../Layout/layout';
 
 export default function App(): JSX.Element {
   const authStatus = useAppSelector((initialState) => initialState.authStatus);
   const loadingData = useAppSelector((initialState) => initialState.loadingData);
+  const dispatch = useAppDispatch();
+
+  useEffect(() => {
+    if (authStatus === AuthorizationStatus.Auth) {
+      dispatch(fetchFavoriteOffers());
+    }
+  }, [authStatus, dispatch]);
 
   if(authStatus === AuthorizationStatus.Unknown || loadingData){
     return (
