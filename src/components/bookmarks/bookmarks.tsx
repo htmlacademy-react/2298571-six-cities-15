@@ -1,7 +1,9 @@
 import { CardType, FavoriteCardStatusType } from '../../types/types';
 import { useAppSelector } from '../../hooks';
 import { store } from '../../store';
-import { fetchFavoriteOffers, sendNewFavorite } from '../../store/api-actions';
+import { fetchFavoriteOffers, changeFavorites } from '../../store/api-actions';
+import { AppRoute, AuthorizationStatus } from '../../const';
+import { useNavigate } from 'react-router-dom';
 
 type BookmarksProps = {
   card: CardType;
@@ -16,9 +18,13 @@ type BookmarksProps = {
 
 export default function Bookmarks({ card, className, iconSize = { width: 18, height: 19 } }: BookmarksProps): JSX.Element {
   const favoriteCards = useAppSelector((initialState) => initialState.favoriteCards);
-  // const offers = useAppSelector((initialState) => initialState.offers);
+  const authStatus = useAppSelector((initialState) => initialState.authStatus);
+  const navigate = useNavigate();
 
   const updateFavorites = (id: string) => {
+    if (authStatus !== AuthorizationStatus.Auth) {
+      navigate(AppRoute.Login);
+    }
     const cardIsFavorite = favoriteCards.some((item) => item.id === id);
     let newCardStatus: FavoriteCardStatusType = { offerId: card.id, status: null };
 
@@ -27,7 +33,7 @@ export default function Bookmarks({ card, className, iconSize = { width: 18, hei
     } else if (!cardIsFavorite) {
       newCardStatus = { offerId: card.id, status: 1 };
     }
-    store.dispatch(sendNewFavorite(newCardStatus)).then(() => {
+    store.dispatch(changeFavorites(newCardStatus)).then(() => {
       store.dispatch(fetchFavoriteOffers());
     });
   };
@@ -52,15 +58,3 @@ export default function Bookmarks({ card, className, iconSize = { width: 18, hei
     </button>
   );
 }
-
-// let updatedFavorites: PlaceType[] = [];
-// if (cardIsFavorite) {
-//   updatedFavorites = favoriteCards.filter((item) => item.id !== id);
-// } else {
-//   const newCard = offers.find((offer) => offer.id === id);
-//   if (newCard) {
-//     updatedFavorites = [...favoriteCards, newCard];
-//   } else {
-//     updatedFavorites = [...favoriteCards];
-//   }
-// }

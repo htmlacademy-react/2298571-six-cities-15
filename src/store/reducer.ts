@@ -3,9 +3,10 @@ import { AVAILABLE_CITIES } from '../data';
 import { CommentsType, PlaceType } from '../types/types';
 import {
   updateCityCardsAction, updateCityAction, updateSortedCardsAction, loadOffersAction, requareAuthAction, updateCommentsAction,
-  setDataLoadingStatusAction, loadFavoriteCardsAction, loadOfferDetailsAction, loadCommentsAction, loadNearByOffersAction
+  setDataLoadingStatusAction, loadFavoriteCardsAction, loadOfferDetailsAction, loadCommentsAction, loadNearByOffersAction,
 } from './actions';
 import { AuthorizationStatus } from '../const';
+import { loginAction } from './api-actions';
 
 type InitialState = {
   activeCity: string;
@@ -18,6 +19,7 @@ type InitialState = {
   favoriteCards: PlaceType[];
   currentOfferComments: CommentsType[];
   nearByOffers: PlaceType[];
+  user: string | null;
 };
 
 const initialState: InitialState = {
@@ -30,7 +32,8 @@ const initialState: InitialState = {
   loadingData: false,
   favoriteCards: [],
   currentOfferComments: [],
-  nearByOffers: []
+  nearByOffers: [],
+  user: localStorage.getItem('user') || '',
 };
 
 const reducer = createReducer(initialState, (builder) => {
@@ -67,10 +70,10 @@ const reducer = createReducer(initialState, (builder) => {
     })
     .addCase(loadFavoriteCardsAction, (state, action) => {
       state.favoriteCards = action.payload;
+    })
+    .addCase(loginAction.fulfilled, (state, action) => {
+      state.user = action.payload;
     });
-  // .addCase(updateFavoriteCardsAction, (state, action) => {
-  //   state.favoriteCards = action.payload;
-  // });
 });
 
 export { reducer };

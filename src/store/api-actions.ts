@@ -47,11 +47,11 @@ export const fetchFavoriteOffers = createAsyncThunk<void, undefined, {
     dispatch(loadFavoriteCardsAction(data));
   });
 
-export const sendNewFavorite = createAsyncThunk<void, FavoriteCardStatusType, {
+export const changeFavorites = createAsyncThunk<void, FavoriteCardStatusType, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'sendNewFavorite',
+  'createNewFavorite',
   async (payload, { extra: api }) => {
     const { offerId, status } = payload;
     await api.post<PlaceType>(`${ApiRoute.Favorite}/${offerId}/${status}`, {
@@ -73,7 +73,7 @@ export const fetchOfferComments = createAsyncThunk<void, string, {
     dispatch(loadCommentsAction(data));
   });
 
-export const sendNewComment = createAsyncThunk<
+export const createNewComment = createAsyncThunk<
   CommentsType,
   { offerId: string; comment: string; rating: number },
   {
@@ -105,7 +105,6 @@ export const fetchOfferNearBy = createAsyncThunk<void, string, {
     dispatch(loadNearByOffersAction(data.slice(0, 3)));
   });
 
-
 export const checkAuthAction = createAsyncThunk<void, undefined, {
   dispatch: AppDispatch;
   state: State;
@@ -121,7 +120,7 @@ export const checkAuthAction = createAsyncThunk<void, undefined, {
     }
   });
 
-export const loginAction = createAsyncThunk<void, AuthData, {
+export const loginAction = createAsyncThunk<string, AuthData, {
   dispatch: AppDispatch;
   state: State;
   extra: AxiosInstance;
@@ -130,8 +129,10 @@ export const loginAction = createAsyncThunk<void, AuthData, {
   async ({ login: email, password }, { dispatch, extra: api }) => {
     const { data: { token } } = await api.post<UserData>(ApiRoute.Login, { email, password });
     saveToken(token);
+    localStorage.setItem('user', email);
     dispatch(requareAuthAction(AuthorizationStatus.Auth));
     dispatch(redirectToRouteAction(AppRoute.Favorites));
+    return email;
   },
 );
 
@@ -144,6 +145,7 @@ export const logoutAction = createAsyncThunk<void, undefined, {
   async (_arg, { dispatch, extra: api }) => {
     await api.delete(ApiRoute.Logout);
     deleteToken();
+    localStorage.removeItem('user');
     dispatch(requareAuthAction(AuthorizationStatus.NoAuth));
   },
 );
