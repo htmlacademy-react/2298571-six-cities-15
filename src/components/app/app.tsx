@@ -5,7 +5,7 @@ import NotFound from '../../pages/404/not-found';
 import Login from '../../pages/login/login';
 import Favorites from '../../pages/favorites/favorites';
 import Offer from '../../pages/offer/offer';
-import Layout from '../Layout/layout';
+import Layout from '../layout/layout';
 import PrivateRoute from '../private-route/private-route';
 import { useAppSelector } from '../../hooks';
 import Loading from '../../services/loading/loading';

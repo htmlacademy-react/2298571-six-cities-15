@@ -1,23 +1,36 @@
-import NotFound from '../404/not-found';
 import ReviewForm from '../../components/review-form/review-form';
 import { AuthorizationStatus } from '../../const';
 import Host from '../../components/host/host';
 import Map from '../../components/map/map';
-import { useAppSelector } from '../../hooks';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import Bookmarks from '../../components/bookmarks/bookmarks';
 import NearOffer from '../../components/near-offer/near-offer';
-import { capitalizeString } from '../../utils';
+import { capitalizeString, formatWordCount } from '../../utils';
 import CommentsList from '../../components/comments-list/comments-list';
+import { useParams } from 'react-router-dom';
+import { fetchOfferComments, fetchOfferDetails, fetchOfferNearBy } from '../../store/api-actions';
+import NotFound from '../404/not-found';
+import { useEffect } from 'react';
 
 export default function Offer(): JSX.Element {
   const currentOffer = useAppSelector((initialState) => initialState.currentOfferDetails);
   const authStatus = useAppSelector((initialState) => initialState.authStatus);
   const nearByOffers = useAppSelector((initialState) => initialState.nearByOffers);
+  const dispatch = useAppDispatch();
+  const params = useParams();
+
+  useEffect(() => {
+    const { id } = params;
+    if (id && (!currentOffer || currentOffer.id !== id)) {
+      dispatch(fetchOfferDetails(id));
+      dispatch(fetchOfferComments(id));
+      dispatch(fetchOfferNearBy(id));
+    }
+  }, [params, currentOffer, dispatch]);
 
   if (!currentOffer) {
     return <NotFound />;
   }
-
   return (
     <div className="page">
       <main className="page__main page__main--offer">
@@ -46,7 +59,7 @@ export default function Offer(): JSX.Element {
                 <Bookmarks
                   card={currentOffer}
                   className={{ bookmark: 'offer' }}
-                  iconSize = {{ width: 31, height: 33 }}
+                  iconSize={{ width: 31, height: 33 }}
                 />
               </div>
 
@@ -63,10 +76,10 @@ export default function Offer(): JSX.Element {
                   {capitalizeString(currentOffer.type)}
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
-                  {currentOffer.bedrooms}
+                  {formatWordCount(currentOffer.bedrooms, 'bedroom')}
                 </li>
                 <li className="offer__feature offer__feature--adults">
-                  Max {currentOffer.maxAdults} adults
+                  Max {formatWordCount(currentOffer.maxAdults, 'adult')}
                 </li>
               </ul>
 

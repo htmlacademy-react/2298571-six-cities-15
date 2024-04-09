@@ -1,7 +1,7 @@
 import { Link } from 'react-router-dom';
-import { AppRoute } from '../../const';
 import { CardType } from '../../types/types';
 import CardInfo from '../card-info/card-info';
+import { AppRoute } from '../../const';
 
 type CardProps = {
   card: CardType;

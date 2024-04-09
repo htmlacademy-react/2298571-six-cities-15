@@ -1,6 +1,7 @@
 import { FormEvent, Fragment, ReactEventHandler, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
-import { sendNewComment } from '../../store/api-actions';
+import { createNewComment } from '../../store/api-actions';
+import { ratingStars } from '../../const';
 
 type FormChangeHandler = ReactEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 
@@ -11,22 +12,17 @@ export default function ReviewForm(): JSX.Element {
 
   const dispatch = useAppDispatch();
 
-  const ratingStars = [
-    { value: 5, label: 'perfect' },
-    { value: 4, label: 'good' },
-    { value: 3, label: 'not bad' },
-    { value: 2, label: 'badly' },
-    { value: 1, label: 'terribly' }
-  ];
-
   const formChangeHandler: FormChangeHandler = (event) => {
     const { name, value } = event.currentTarget;
-    setReview({ ...review, [name]: value });
+    setReview((prevReview) => ({
+      ...prevReview,
+      [name]: name === 'comment' ? value : parseInt(value, 10),
+    }));
   };
 
   const submitHandler = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
-    dispatch(sendNewComment({
+    dispatch(createNewComment({
       offerId,
       comment: review.comment,
       rating: Number(review.rating),

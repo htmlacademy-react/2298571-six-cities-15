@@ -30,4 +30,12 @@ const validateForm = (email: string, password: string): boolean => {
   return true;
 };
 
-export { setDateForm, capitalizeString, validateForm };
+function formatWordCount(number:number, word:string) {
+  if (number === 1) {
+    return `${number} ${word}`;
+  } else {
+    return `${number} ${word}s`;
+  }
+}
+
+export { setDateForm, capitalizeString, validateForm, formatWordCount};

@@ -75,4 +75,9 @@ type ErrorMessage = {
 
 type Points = Point[];
 
-export type { PlaceType, CardType, Point, Points, AuthData, UserData, ErrorMessage, CommentsType };
+type FavoriteCardStatusType = {
+  offerId: string;
+  status: 1 | 0 | null;
+}
+
+export type { PlaceType, CardType, Point, Points, AuthData, UserData, ErrorMessage, CommentsType, FavoriteCardStatusType };
