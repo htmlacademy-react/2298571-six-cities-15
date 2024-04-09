@@ -5,7 +5,7 @@ import Map from '../../components/map/map';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import Bookmarks from '../../components/bookmarks/bookmarks';
 import NearOffer from '../../components/near-offer/near-offer';
-import { capitalizeString } from '../../utils';
+import { capitalizeString, formatWordCount } from '../../utils';
 import CommentsList from '../../components/comments-list/comments-list';
 import { useParams } from 'react-router-dom';
 import { fetchOfferComments, fetchOfferDetails, fetchOfferNearBy } from '../../store/api-actions';
@@ -21,12 +21,12 @@ export default function Offer(): JSX.Element {
 
   useEffect(() => {
     const { id } = params;
-    if (id) {
+    if (id && (!currentOffer || currentOffer.id !== id)) {
       dispatch(fetchOfferDetails(id));
       dispatch(fetchOfferComments(id));
       dispatch(fetchOfferNearBy(id));
     }
-  }, [params, dispatch]);
+  }, [params, currentOffer, dispatch]);
 
   if (!currentOffer) {
     return <NotFound />;
@@ -76,10 +76,10 @@ export default function Offer(): JSX.Element {
                   {capitalizeString(currentOffer.type)}
                 </li>
                 <li className="offer__feature offer__feature--bedrooms">
-                  {currentOffer.bedrooms}
+                  {formatWordCount(currentOffer.bedrooms, 'bedroom')}
                 </li>
                 <li className="offer__feature offer__feature--adults">
-                  Max {currentOffer.maxAdults} adults
+                  Max {formatWordCount(currentOffer.maxAdults, 'adult')}
                 </li>
               </ul>
 

@@ -30,7 +30,7 @@ const validateForm = (email: string, password: string): boolean => {
   return true;
 };
 
-function formatNumberWithWord(number:number, word:string) {
+function formatWordCount(number:number, word:string) {
   if (number === 1) {
     return `${number} ${word}`;
   } else {
@@ -38,4 +38,4 @@ function formatNumberWithWord(number:number, word:string) {
   }
 }
 
-export { setDateForm, capitalizeString, validateForm,formatNumberWithWord};
+export { setDateForm, capitalizeString, validateForm, formatWordCount};

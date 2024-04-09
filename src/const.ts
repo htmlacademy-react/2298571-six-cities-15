@@ -27,5 +27,7 @@ export const ratingStars = [
   { value: 1, label: 'terribly' }
 ];
 
+export const MAX_COMMENTS_COUNT = 10;
+
 export const URL_MARKER_DEFAULT = 'img/pin.svg';
 export const URL_MARKER_CURRENT = 'img/pin-active.svg';
