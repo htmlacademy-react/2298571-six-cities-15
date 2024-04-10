@@ -2,7 +2,7 @@ import { useState, useEffect, useRef } from 'react';
 import { PlaceType } from '../../types/types';
 import { useAppSelector, useAppDispatch } from '../../hooks';
 import { updateSortedCardsAction } from '../../store/actions';
-import { useOutsideClick } from '../../hooks/custom-hook';
+import { useOutsideClick } from '../../hooks/use-outside-click';
 
 type SortOption = {
   key: string;
