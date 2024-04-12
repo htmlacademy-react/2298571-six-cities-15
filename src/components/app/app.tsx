@@ -12,7 +12,7 @@ import HistoryRouter from '../history/history-route';
 import browserHistory from '../history/browser-history';
 import { useEffect } from 'react';
 import { fetchFavoriteOffers } from '../../store/api-actions';
-import Layout from '../layout/layout';
+import Layout from '../test/layout';
 
 export default function App(): JSX.Element {
   const authStatus = useAppSelector((initialState) => initialState.authStatus);
