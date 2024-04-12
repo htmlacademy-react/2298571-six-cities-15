@@ -7,26 +7,34 @@ import Bookmarks from '../../components/bookmarks/bookmarks';
 import NearOffer from '../../components/near-offer/near-offer';
 import { capitalizeString, formatWordCount } from '../../utils';
 import CommentsList from '../../components/comments-list/comments-list';
-import { useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { fetchOfferComments, fetchOfferDetails, fetchOfferNearBy } from '../../store/api-actions';
-import NotFound from '../404/not-found';
+import NotFound from '../not-found/not-found';
 import { useEffect } from 'react';
 
 export default function Offer(): JSX.Element {
   const currentOffer = useAppSelector((initialState) => initialState.currentOfferDetails);
   const authStatus = useAppSelector((initialState) => initialState.authStatus);
   const nearByOffers = useAppSelector((initialState) => initialState.nearByOffers);
+  const offers = useAppSelector((initialState) => initialState.offers);
   const dispatch = useAppDispatch();
   const params = useParams();
+  const navigate = useNavigate();
 
   useEffect(() => {
     const { id } = params;
-    if (id && (!currentOffer || currentOffer.id !== id)) {
-      dispatch(fetchOfferDetails(id));
-      dispatch(fetchOfferComments(id));
-      dispatch(fetchOfferNearBy(id));
+    const offerExists = offers.find((offer) => offer.id === id);
+
+    if (!offerExists) {
+      navigate('/404');
+    } else {
+      if (id && (!currentOffer || currentOffer.id !== id)) {
+        dispatch(fetchOfferDetails(id));
+        dispatch(fetchOfferComments(id));
+        dispatch(fetchOfferNearBy(id));
+      }
     }
-  }, [params, currentOffer, dispatch]);
+  }, [params, currentOffer, dispatch, navigate, offers]);
 
   if (!currentOffer) {
     return <NotFound />;

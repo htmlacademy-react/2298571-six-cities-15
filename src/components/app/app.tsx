@@ -1,7 +1,7 @@
 import Main from '../../pages/main/main';
 import { AppRoute, AuthorizationStatus } from '../../const';
 import { Route, Routes } from 'react-router-dom';
-import NotFound from '../../pages/404/not-found';
+import NotFound from '../../pages/not-found/not-found';
 import Login from '../../pages/login/login';
 import Favorites from '../../pages/favorites/favorites';
 import Offer from '../../pages/offer/offer';
@@ -12,7 +12,7 @@ import HistoryRouter from '../history/history-route';
 import browserHistory from '../history/browser-history';
 import { useEffect } from 'react';
 import { fetchFavoriteOffers } from '../../store/api-actions';
-import Layout from '../Layout/layout';
+import Layout from '../layout/layout';
 
 export default function App(): JSX.Element {
   const authStatus = useAppSelector((initialState) => initialState.authStatus);

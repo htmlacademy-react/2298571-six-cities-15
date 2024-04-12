@@ -2,7 +2,7 @@ import { createReducer } from '@reduxjs/toolkit';
 import { AVAILABLE_CITIES } from '../data';
 import { CommentsType, PlaceType } from '../types/types';
 import {
-  updateCityCardsAction, updateCityAction, updateSortedCardsAction, loadOffersAction, requareAuthAction, updateCommentsAction,
+  updateCityAction, loadOffersAction, requareAuthAction, updateCommentsAction,
   setDataLoadingStatusAction, loadFavoriteCardsAction, loadOfferDetailsAction, loadCommentsAction, loadNearByOffersAction,
 } from './actions';
 import { AuthorizationStatus } from '../const';
@@ -12,8 +12,6 @@ type InitialState = {
   activeCity: string;
   offers: PlaceType[];
   currentOfferDetails: PlaceType | null;
-  cityCards: PlaceType[];
-  sortedCityCards: PlaceType[];
   authStatus: AuthorizationStatus;
   loadingData: boolean;
   favoriteCards: PlaceType[];
@@ -26,8 +24,6 @@ const initialState: InitialState = {
   activeCity: AVAILABLE_CITIES[0].name,
   offers: [],
   currentOfferDetails: null,
-  cityCards: [],
-  sortedCityCards: [],
   authStatus: AuthorizationStatus.Unknown,
   loadingData: false,
   favoriteCards: [],
@@ -40,12 +36,6 @@ const reducer = createReducer(initialState, (builder) => {
   builder
     .addCase(updateCityAction, (state, action) => {
       state.activeCity = action.payload;
-    })
-    .addCase(updateCityCardsAction, (state, action) => {
-      state.cityCards = action.payload;
-    })
-    .addCase(updateSortedCardsAction, (state, action) => {
-      state.sortedCityCards = action.payload;
     })
     .addCase(loadOffersAction, (state, action) => {
       state.offers = action.payload;

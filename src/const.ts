@@ -27,7 +27,21 @@ export const ratingStars = [
   { value: 1, label: 'terribly' }
 ];
 
-export const MAX_COMMENTS_COUNT = 10;
+export const Reviews = {
+  MAX_COMMENTS_COUNT: 10,
+  MIN_COMMENT_SYMBOLS: 50,
+  MAX_COMMENT_SYMBOLS: 300,
+  DISABLE_STARS_COUNT: 0,
+};
 
-export const URL_MARKER_DEFAULT = 'img/pin.svg';
-export const URL_MARKER_CURRENT = 'img/pin-active.svg';
+export const enum Errors {
+  REVIEW_MESSAGE = 'Во время отправки отзыва произошла ошибка',
+  AUTH_MESSAGE = 'Ошибка авторизации',
+}
+
+export const ERROR_TIMER = 5000;
+
+export enum MarkerURL {
+  DEFAULT = 'img/pin.svg',
+  CURRENT = 'img/pin-active.svg'
+}

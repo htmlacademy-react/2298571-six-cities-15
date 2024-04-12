@@ -1,4 +1,4 @@
-import { MAX_COMMENTS_COUNT } from '../../const';
+import { Reviews } from '../../const';
 import { useAppSelector } from '../../hooks';
 import Review from '../review/review';
 
@@ -6,7 +6,7 @@ import Review from '../review/review';
 export default function CommentsList(): JSX.Element {
   const currentOfferComments = useAppSelector((initialState) => initialState.currentOfferComments);
   const sortedComments = [...currentOfferComments].sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime());
-  const slicedComments = sortedComments.slice(0, MAX_COMMENTS_COUNT);
+  const slicedComments = sortedComments.slice(0, Reviews.MAX_COMMENTS_COUNT);
 
   return (
     <>

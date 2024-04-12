@@ -3,9 +3,10 @@ import { StatusCodes } from 'http-status-codes';
 import { getToken } from './token';
 import { ErrorMessage } from '../types/types';
 import { toast } from 'react-toastify';
+import { ERROR_TIMER, Errors } from '../const';
 
 const URL = 'https://15.design.htmlacademy.pro/six-cities';
-const REQUEST_TIMEOUT = 5000;
+const REQUEST_TIMEOUT = ERROR_TIMER;
 
 const StatusCodeMapping: Record<number, boolean> = {
   [StatusCodes.BAD_REQUEST]: true,
@@ -34,7 +35,9 @@ export const createApi = (): AxiosInstance => {
     (error: AxiosError<ErrorMessage>) => {
       if (error.response && shouldDisplayError(error)) {
         const detailMessage = (error.response.data);
-        toast.warn(detailMessage.message);
+        const errorMessage = detailMessage.message || Errors.REVIEW_MESSAGE;
+        const fullErrorMessage = `${errorMessage}: ${error.message}`;
+        toast.error(fullErrorMessage);
       }
 
       throw error;
