@@ -1,7 +1,8 @@
 import { FormEvent, Fragment, ReactEventHandler, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { createNewComment } from '../../store/api-actions';
-import { ratingStars } from '../../const';
+import { Errors, Reviews, ratingStars } from '../../const';
+import { toast } from 'react-toastify';
 
 type FormChangeHandler = ReactEventHandler<HTMLInputElement | HTMLTextAreaElement>;
 
@@ -9,10 +10,11 @@ export default function ReviewForm(): JSX.Element {
   const currentOffer = useAppSelector((initialState) => initialState.currentOfferDetails);
   const offerId = currentOffer ? currentOffer.id : '';
   const [review, setReview] = useState({ rating: 0, comment: '' });
+  const [isSubmitting, setIsSubmitting] = useState(false);
 
   const dispatch = useAppDispatch();
 
-  const formChangeHandler: FormChangeHandler = (event) => {
+  const handleFormChange: FormChangeHandler = (event) => {
     const { name, value } = event.currentTarget;
     setReview((prevReview) => ({
       ...prevReview,
@@ -20,18 +22,27 @@ export default function ReviewForm(): JSX.Element {
     }));
   };
 
-  const submitHandler = (evt: FormEvent<HTMLFormElement>) => {
+  const handleSubmitClick = (evt: FormEvent<HTMLFormElement>): void => {
     evt.preventDefault();
+    setIsSubmitting(true);
+
     dispatch(createNewComment({
       offerId,
       comment: review.comment,
       rating: Number(review.rating),
-    }));
-    setReview({ rating: 0, comment: '' });
+    }))
+      .then(() => {
+        setReview({ rating: 0, comment: '' });
+        setIsSubmitting(false);
+      })
+      .catch(() => {
+        toast.error(Errors.REVIEW_MESSAGE);
+        setIsSubmitting(false);
+      });
   };
 
   return (
-    <form className="reviews__form form" action="#" method="post" onSubmit={submitHandler}>
+    <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmitClick}>
       <label className="reviews__label form__label" htmlFor="review">Your review</label>
       <div className="reviews__rating-form form__rating">
         {ratingStars.map(({ value, label }) => (
@@ -43,7 +54,7 @@ export default function ReviewForm(): JSX.Element {
               id={`${value}-stars`}
               type="radio"
               checked={review.rating === value}
-              onChange={formChangeHandler}
+              onChange={handleFormChange}
             />
             <label
               htmlFor={`${value}-stars`}
@@ -63,7 +74,8 @@ export default function ReviewForm(): JSX.Element {
         name="comment"
         value={review.comment}
         placeholder="Tell how was your stay, what you like and what can be improved"
-        onChange={formChangeHandler}
+        onChange={handleFormChange}
+        disabled={isSubmitting}
       />
       <div className="reviews__button-wrapper">
         <p className="reviews__help">
@@ -72,7 +84,10 @@ export default function ReviewForm(): JSX.Element {
         <button
           className="reviews__submit form__submit button"
           type="submit"
-          disabled={review.comment.length < 50 || review.rating === 0}
+          disabled={isSubmitting ||
+            review.comment.length < Reviews.MIN_COMMENT_SYMBOLS ||
+            review.comment.length > Reviews.MAX_COMMENT_SYMBOLS ||
+            review.rating === Reviews.DISABLE_STARS_COUNT}
         >
           Submit
         </button>

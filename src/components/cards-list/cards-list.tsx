@@ -2,15 +2,22 @@ import Sort from '../../components/sort/sort';
 import Card from '../../components/card/card';
 import { useAppSelector } from '../../hooks';
 import { formatWordCount } from '../../utils';
+import { PlaceType } from '../../types/types';
+import { useState } from 'react';
 
 type CardsListProps = {
-  handleMouseEnter: (id: string | null) => void;
-  handleMouseLeave: () => void;
+  onMouseEnter: (id: string | null) => void;
+  onMouseLeave: () => void;
+  cityCards: PlaceType[];
 }
 
-export default function CardsList({ handleMouseEnter, handleMouseLeave }: CardsListProps): JSX.Element {
+export default function CardsList({ onMouseEnter, onMouseLeave, cityCards }: CardsListProps): JSX.Element {
   const isActiveCity = useAppSelector((initialState) => initialState.activeCity);
-  const sortedCityCards = useAppSelector((initialState) => initialState.sortedCityCards);
+  const [sortedCityCards, setSortedCityCards] = useState<PlaceType[]>([]);
+
+  const onSortUpdate = (sortedCards: PlaceType[]) => {
+    setSortedCityCards(sortedCards);
+  };
 
   const offersList = sortedCityCards.map((offer) => (
     <Card
@@ -25,13 +32,13 @@ export default function CardsList({ handleMouseEnter, handleMouseLeave }: CardsL
         title: offer.title,
         type: offer.type,
       }}
-      handleMouseEnter={handleMouseEnter}
-      handleMouseLeave = {handleMouseLeave}
-      imageSize = {{
+      onMouseEnter={onMouseEnter}
+      onMouseLeave={onMouseLeave}
+      imageSize={{
         width: 260,
         height: 200,
       }}
-      className = {{
+      className={{
         page: 'cities',
         info: null,
         bookmark: 'place-card',
@@ -43,7 +50,7 @@ export default function CardsList({ handleMouseEnter, handleMouseLeave }: CardsL
     <section className="cities__places places">
       <h2 className="visually-hidden">Places</h2>
       <b className="places__found">{formatWordCount(sortedCityCards.length, 'place')} to stay in {isActiveCity}</b>
-      <Sort />
+      <Sort cityCards={cityCards} onSortUpdate={onSortUpdate} />
       <div className="cities__places-list places__list tabs__content">
         {offersList}
       </div>

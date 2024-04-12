@@ -1,7 +1,5 @@
 import { useState, useEffect, useRef } from 'react';
 import { PlaceType } from '../../types/types';
-import { useAppSelector, useAppDispatch } from '../../hooks';
-import { updateSortedCardsAction } from '../../store/actions';
 import { useOutsideClick } from '../../hooks/use-outside-click';
 
 type SortOption = {
@@ -17,18 +15,21 @@ const sortOptions: SortOption[] = [
   { key: 'topRatedFirst', label: 'Top rated first', sortFunction: (a, b) => b.rating - a.rating },
 ];
 
-export default function Sort(): JSX.Element {
-  const cityCards = useAppSelector((initialState) => initialState.cityCards);
+type SortProps = {
+  cityCards: PlaceType[];
+  onSortUpdate: (sortedCityCards: PlaceType[]) => void;
+};
+
+export default function Sort({ cityCards, onSortUpdate }: SortProps): JSX.Element {
   const [formIsOpen, setFormIsOpen] = useState<boolean>(false);
   const [sortBy, setSortBy] = useState<string>(sortOptions[0].key);
-  const dispatch = useAppDispatch();
   const formRef = useRef<HTMLFormElement>(null);
 
   const sortCityCards = (sortOption: string, offers: PlaceType[]) => {
     const selectedSortOption = sortOptions.find((option) => option.key === sortOption);
     if (selectedSortOption) {
-      const sortedCityCards = [...offers].sort(selectedSortOption.sortFunction);
-      dispatch(updateSortedCardsAction(sortedCityCards));
+      const newSortedCityCards = [...offers].sort(selectedSortOption.sortFunction);
+      onSortUpdate(newSortedCityCards);
     }
   };
 

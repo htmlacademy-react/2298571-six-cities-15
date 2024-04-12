@@ -1,18 +1,24 @@
-import { FormEvent, useRef } from 'react';
-import { useAppDispatch } from '../../hooks';
+import { FormEvent, useEffect, useRef } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks';
 import { useNavigate } from 'react-router-dom';
 import { loginAction } from '../../store/api-actions';
-import { AppRoute } from '../../const';
+import { AppRoute, AuthorizationStatus, Errors } from '../../const';
 import { toast } from 'react-toastify';
 import { AuthData } from '../../types/types';
 import { validateForm } from '../../utils';
 
 export default function LoginForm(): JSX.Element {
+  const authStatus = useAppSelector((initialState) => initialState.authStatus);
   const loginRef = useRef<HTMLInputElement | null>(null);
   const passwordRef = useRef<HTMLInputElement | null>(null);
-
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
+
+  useEffect(() => {
+    if (authStatus === AuthorizationStatus.Auth) {
+      navigate(AppRoute.Main);
+    }
+  }, [authStatus, navigate]);
 
   const handleSubmit = (evt: FormEvent<HTMLFormElement>) => {
     evt.preventDefault();
@@ -39,11 +45,12 @@ export default function LoginForm(): JSX.Element {
         }
       })
       .catch(() => {
-        toast.error('Ошибка аутентификации');
+        toast.error(Errors.AUTH_MESSAGE);
       });
   };
 
   return (
+
     <section className="login">
       <h1 className="login__title">Sign in</h1>
       <form

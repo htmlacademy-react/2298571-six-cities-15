@@ -5,8 +5,8 @@ import { AppRoute } from '../../const';
 
 type CardProps = {
   card: CardType;
-  handleMouseEnter?: (id: string | null) => void;
-  handleMouseLeave?: () => void;
+  onMouseEnter?: (id: string | null) => void;
+  onMouseLeave?: () => void;
   imageSize: {
     width: number;
     height: number;
@@ -18,12 +18,12 @@ type CardProps = {
   };
 }
 
-export default function Card({ card, handleMouseEnter, handleMouseLeave, imageSize, className }: CardProps): JSX.Element {
+export default function Card({ card, onMouseEnter, onMouseLeave, imageSize, className }: CardProps): JSX.Element {
 
   return (
     <article className={`${className.page}__card place-card`}
-      onMouseEnter={handleMouseEnter ? () => handleMouseEnter(card.id) : undefined}
-      onMouseLeave={handleMouseLeave}
+      onMouseEnter={onMouseEnter ? () => onMouseEnter(card.id) : undefined}
+      onMouseLeave={onMouseLeave}
     >
 
       {card.isPremium && (

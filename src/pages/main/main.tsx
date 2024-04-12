@@ -4,29 +4,25 @@ import MainEmpty from '../../components/main-empty/main-empty';
 import Map from '../../components/map/map';
 import { PlaceType } from '../../types/types';
 import { useState, useEffect } from 'react';
-import { useAppDispatch, useAppSelector } from '../../hooks';
-import { updateCityCardsAction } from '../../store/actions';
+import { useAppSelector } from '../../hooks';
 
 type IsActiveCardType = string | null;
 
 export default function Main(): JSX.Element {
   const [isActiveCard, setIsActiveCard] = useState<IsActiveCardType>(null);
-
-  const dispatch = useAppDispatch();
+  const [cityCards, setCityCards] = useState<PlaceType[]>([]);
   const isActiveCity = useAppSelector((initialState) => initialState.activeCity);
   const offers = useAppSelector((initialState) => initialState.offers);
-  const cityCards = useAppSelector((initialState) => initialState.cityCards);
 
   useEffect(() => {
-    const cityOffers: PlaceType[] = offers.filter((offer) => offer.city.name === isActiveCity);
-    dispatch(updateCityCardsAction(cityOffers));
-  }, [isActiveCity, offers, dispatch]);
+    const newCityCards: PlaceType[] = offers.filter((offer) => offer.city.name === isActiveCity);
+    setCityCards(newCityCards);
+  }, [isActiveCity, offers]);
 
-  // Отслеживаем наведение мыши на карту
-  const handleMouseEnter = (id: string | null) => {
+  const onMouseEnter = (id: string | null) => {
     setIsActiveCard(id);
   };
-  const handleMouseLeave = () => {
+  const onMouseLeave = () => {
     setIsActiveCard(null);
   };
 
@@ -39,8 +35,9 @@ export default function Main(): JSX.Element {
           {cityCards && cityCards.length > 0 ? (
             <div className="cities__places-container container">
               <CardsList
-                handleMouseEnter={handleMouseEnter}
-                handleMouseLeave={handleMouseLeave}
+                onMouseEnter={onMouseEnter}
+                onMouseLeave={onMouseLeave}
+                cityCards={cityCards}
               />
               <div className="cities__right-section">
                 <Map

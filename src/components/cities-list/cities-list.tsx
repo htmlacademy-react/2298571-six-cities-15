@@ -1,6 +1,7 @@
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { updateCityAction } from '../../store/actions';
 import { AVAILABLE_CITIES } from '../../data';
+import { Link } from 'react-router-dom';
 
 export default function CitiesList(): JSX.Element {
   const isActiveCity = useAppSelector((initialState) => initialState.activeCity);
@@ -11,9 +12,9 @@ export default function CitiesList(): JSX.Element {
       dispatch(updateCityAction(city.name));
     }}
     >
-      <a className={`locations__item-link tabs__item ${city.name === isActiveCity ? 'tabs__item--active' : ''}`} href="#" >
+      <Link to='#' className={`locations__item-link tabs__item ${city.name === isActiveCity ? 'tabs__item--active' : ''}`} >
         {city.name}
-      </a>
+      </Link>
     </li>
   ));
 
