@@ -3,7 +3,7 @@ import Card from '../../components/card/card';
 import { useAppSelector } from '../../hooks';
 import { formatWordCount } from '../../utils';
 import { PlaceType } from '../../types/types';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 
 type CardsListProps = {
   onMouseEnter: (id: string | null) => void;
@@ -15,9 +15,13 @@ export default function CardsList({ onMouseEnter, onMouseLeave, cityCards }: Car
   const isActiveCity = useAppSelector((initialState) => initialState.activeCity);
   const [sortedCityCards, setSortedCityCards] = useState<PlaceType[]>([]);
 
-  const onSortUpdate = (sortedCards: PlaceType[]) => {
+  const handleSortUpdate = (sortedCards: PlaceType[]) => {
     setSortedCityCards(sortedCards);
   };
+
+  useEffect(() => {
+    handleSortUpdate(cityCards);
+  }, [cityCards]);
 
   const offersList = sortedCityCards.map((offer) => (
     <Card
@@ -50,7 +54,7 @@ export default function CardsList({ onMouseEnter, onMouseLeave, cityCards }: Car
     <section className="cities__places places">
       <h2 className="visually-hidden">Places</h2>
       <b className="places__found">{formatWordCount(sortedCityCards.length, 'place')} to stay in {isActiveCity}</b>
-      <Sort cityCards={cityCards} onSortUpdate={onSortUpdate} />
+      <Sort cityCards={cityCards} onSortUpdate={handleSortUpdate} />
       <div className="cities__places-list places__list tabs__content">
         {offersList}
       </div>

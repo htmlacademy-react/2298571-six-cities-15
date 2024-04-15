@@ -45,3 +45,10 @@ export enum MarkerURL {
   DEFAULT = 'img/pin.svg',
   CURRENT = 'img/pin-active.svg'
 }
+
+export enum SubmitStatus {
+  Null,
+  Pending,
+  Fulfilled,
+  Error
+}

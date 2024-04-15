@@ -1,4 +1,4 @@
-import { useState, useEffect, useRef } from 'react';
+import { useState, useRef } from 'react';
 import { PlaceType } from '../../types/types';
 import { useOutsideClick } from '../../hooks/use-outside-click';
 
@@ -32,11 +32,6 @@ export default function Sort({ cityCards, onSortUpdate }: SortProps): JSX.Elemen
       onSortUpdate(newSortedCityCards);
     }
   };
-
-  useEffect(() => {
-    sortCityCards(sortBy, cityCards);
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [cityCards, sortBy]);
 
   const handleSortChange = (sortOption: string) => {
     setSortBy(sortOption);

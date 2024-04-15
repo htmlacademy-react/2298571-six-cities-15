@@ -80,4 +80,17 @@ type FavoriteCardStatusType = {
   status: 1 | 0 | null;
 }
 
-export type { PlaceType, CardType, Point, Points, AuthData, UserData, ErrorMessage, CommentsType, FavoriteCardStatusType };
+type Review = {
+  rating: number;
+  comment: string;
+}
+
+enum SubmitStatus {
+  Null,
+  Pending,
+  Fulfilled,
+  Error
+}
+
+
+export type { PlaceType, CardType, Point, Points, AuthData, UserData, ErrorMessage, CommentsType, FavoriteCardStatusType, Review, SubmitStatus };
