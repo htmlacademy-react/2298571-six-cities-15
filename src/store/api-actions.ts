@@ -21,7 +21,7 @@ export const fetchOffersData = createAsyncThunk<void, undefined, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'offer/loadOffersAction',
+  'data/loadOffersAction',
   async (_arg, { dispatch, extra: api }) => {
     dispatch(setDataLoadingStatusAction(true));
     const { data } = await api.get<PlaceType[]>(ApiRoute.Offers);
@@ -34,7 +34,7 @@ export const fetchOfferDetails = createAsyncThunk<void, string, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'offer/loadOfferDetailsAction',
+  'data/loadOfferDetailsAction',
   async (offerId, { dispatch, extra: api }) => {
     dispatch(setDataLoadingStatusAction(true));
     const { data } = await api.get<PlaceType>(`${ApiRoute.Offers}/${offerId}`);
@@ -48,7 +48,7 @@ export const fetchFavoriteOffers = createAsyncThunk<void, undefined, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'favorites/loadFavoriteCardsAction',
+  'data/loadFavoriteCardsAction',
   async (_arg, { dispatch, extra: api }) => {
     const { data } = await api.get<PlaceType[]>(ApiRoute.Favorite);
     dispatch(loadFavoriteCardsAction(data));
@@ -58,7 +58,7 @@ export const changeFavorites = createAsyncThunk<void, FavoriteCardStatusType, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'favorites/createNewFavorite',
+  'data/createNewFavorite',
   async (payload, { extra: api }) => {
     const { offerId, status } = payload;
     await api.post<PlaceType>(`${ApiRoute.Favorite}/${offerId}/${status}`, {
@@ -72,7 +72,7 @@ export const fetchOfferComments = createAsyncThunk<void, string, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'offer/loadCommentsAction',
+  'data/loadCommentsAction',
   async (offerId, { dispatch, extra: api }) => {
     dispatch(setDataLoadingStatusAction(true));
     const { data } = await api.get<CommentsType[]>(`${ApiRoute.Comments}/${offerId}`);
@@ -88,7 +88,7 @@ export const createNewComment = createAsyncThunk<
     extra: AxiosInstance;
   }
 >(
-  'offer/updateCommentsAction',
+  'data/updateCommentsAction',
   async ({ offerId, comment, rating }, { extra: api, dispatch }) => {
     const response = await api.post<CommentsType>(`${ApiRoute.Comments}/${offerId}`, {
       comment,
@@ -104,7 +104,7 @@ export const fetchOfferNearBy = createAsyncThunk<void, string, {
   state: State;
   extra: AxiosInstance;
 }>(
-  'offer/loadNearByOffersAction',
+  'data/loadNearByOffersAction',
   async (offerId, { dispatch, extra: api }) => {
     dispatch(setDataLoadingStatusAction(true));
     const { data } = await api.get<PlaceType[]>(`${ApiRoute.Offers}/${offerId}/nearby`);

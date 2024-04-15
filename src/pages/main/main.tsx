@@ -19,10 +19,10 @@ export default function Main(): JSX.Element {
     setCityCards(newCityCards);
   }, [isActiveCity, offers]);
 
-  const onMouseEnter = (id: string | null) => {
+  const handleMouseEnter = (id: string | null) => {
     setIsActiveCard(id);
   };
-  const onMouseLeave = () => {
+  const handleMouseLeave = () => {
     setIsActiveCard(null);
   };
 
@@ -35,8 +35,8 @@ export default function Main(): JSX.Element {
           {cityCards && cityCards.length > 0 ? (
             <div className="cities__places-container container">
               <CardsList
-                onMouseEnter={onMouseEnter}
-                onMouseLeave={onMouseLeave}
+                onMouseEnter={handleMouseEnter}
+                onMouseLeave={handleMouseLeave}
                 cityCards={cityCards}
               />
               <div className="cities__right-section">

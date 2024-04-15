@@ -1,7 +1,7 @@
-import { FormEvent, Fragment, ReactEventHandler, useState } from 'react';
+import { FormEvent, Fragment, ReactEventHandler, useEffect, useState } from 'react';
 import { useAppDispatch, useAppSelector } from '../../hooks';
 import { createNewComment } from '../../store/api-actions';
-import { Errors, Reviews, ratingStars } from '../../const';
+import { Errors, Reviews, SubmitStatus, ratingStars } from '../../const';
 import { toast } from 'react-toastify';
 
 type FormChangeHandler = ReactEventHandler<HTMLInputElement | HTMLTextAreaElement>;
@@ -10,7 +10,8 @@ export default function ReviewForm(): JSX.Element {
   const currentOffer = useAppSelector((initialState) => initialState.currentOfferDetails);
   const offerId = currentOffer ? currentOffer.id : '';
   const [review, setReview] = useState({ rating: 0, comment: '' });
-  const [isSubmitting, setIsSubmitting] = useState(false);
+  const [submitStatus, setSubmitStatus] = useState<SubmitStatus>(SubmitStatus.Null);
+  const isSubmitting = submitStatus === SubmitStatus.Pending;
 
   const dispatch = useAppDispatch();
 
@@ -24,22 +25,33 @@ export default function ReviewForm(): JSX.Element {
 
   const handleSubmitClick = (evt: FormEvent<HTMLFormElement>): void => {
     evt.preventDefault();
-    setIsSubmitting(true);
-
+    setSubmitStatus(SubmitStatus.Pending);
     dispatch(createNewComment({
       offerId,
       comment: review.comment,
       rating: Number(review.rating),
     }))
-      .then(() => {
-        setReview({ rating: 0, comment: '' });
-        setIsSubmitting(false);
+      .then((response) => {
+        if (response.meta.requestStatus === 'rejected') {
+          toast.error(Errors.REVIEW_MESSAGE);
+          setSubmitStatus(SubmitStatus.Error);
+        } else {
+          setSubmitStatus(SubmitStatus.Fulfilled);
+          setReview({ rating: 0, comment: '' });
+        }
       })
       .catch(() => {
         toast.error(Errors.REVIEW_MESSAGE);
-        setIsSubmitting(false);
+        setSubmitStatus(SubmitStatus.Error);
       });
   };
+
+  useEffect(() => {
+    if (submitStatus === SubmitStatus.Fulfilled) {
+      setReview({ rating: 0, comment: '' });
+    }
+
+  }, [submitStatus]);
 
   return (
     <form className="reviews__form form" action="#" method="post" onSubmit={handleSubmitClick}>
